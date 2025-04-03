@@ -1,24 +1,29 @@
 import { useState } from "react";
-import Cloudflare from "cloudflare";
 
 function GetZones() {
   const [apiKey, setApiKey] = useState("");
   const [email, setEmail] = useState("");
-  const [error, setError] = useState<string | null>(null);
 
   const fetchZones = async () => {
-    try {
-      setError(null);
+    const response = await fetch(
+      "https://cortex.app.taralys.com/client/v4/zones",
+      {
+        method: "GET",
+        headers: {
+          "X-Auth-Email": email,
+          "X-Auth-Key": apiKey,
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-      const client = new Cloudflare({
-        apiEmail: email,
-        apiKey: apiKey,
-      });
-
-      console.log(client.zones.list());
-    } catch (err: any) {
-      setError(err.message || "Failed to fetch zones");
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status} - ${await response.text()}`);
     }
+
+    const data = await response.json();
+
+    console.log(data);
   };
 
   return (
@@ -43,7 +48,6 @@ function GetZones() {
       >
         Fetch Zones
       </button>
-      {error && <p className="text-red-500 mt-2">{error}</p>}
     </div>
   );
 }
