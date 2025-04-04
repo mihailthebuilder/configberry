@@ -200,18 +200,6 @@ function Zones() {
                 >
                   Zone ID
                 </th>
-                <th
-                  scope="col"
-                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                >
-                  Status
-                </th>
-                <th
-                  scope="col"
-                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                >
-                  Type
-                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 bg-white">
@@ -223,32 +211,10 @@ function Zones() {
                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 font-mono">
                     {zone.id}
                   </td>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm">
-                    <span
-                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                        zone.status === "active" && !zone.paused
-                          ? "bg-green-100 text-green-800"
-                          : zone.paused
-                          ? "bg-yellow-100 text-yellow-800"
-                          : "bg-gray-100 text-gray-800"
-                      }`}
-                    >
-                      {zone.paused ? "Paused" : zone.status}
-                    </span>
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                    {zone.type}
-                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
-        </div>
-      )}
-
-      {zones.length > 0 && (
-        <div className="mt-4 text-sm text-gray-500">
-          Showing {zones.length} zone{zones.length !== 1 ? "s" : ""}
         </div>
       )}
     </div>
