@@ -74,7 +74,7 @@ function GetZones() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+    <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-gray-800 mb-4">
           Cloudflare Zones
@@ -125,7 +125,7 @@ function GetZones() {
           <div className="flex">
             <button
               disabled={loading}
-              className={`px-4 py-2 rounded-md text-white font-medium ${
+              className={`px-4 py-2 rounded-md text-white font-medium hover:cursor-pointer ${
                 loading
                   ? "bg-blue-400 cursor-not-allowed"
                   : "bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
