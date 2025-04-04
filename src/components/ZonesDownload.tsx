@@ -6,6 +6,13 @@ interface CloudflareAccount {
   apiKey: string;
 }
 
+interface ZoneToDownload {
+  id: string;
+  name: string;
+  apiEmail: string;
+  apiKey: string;
+}
+
 function ZonesDownload() {
   const [file, setFile] = useState<File | null>(null);
   const [cloudflareAccounts, setCloudflareAccounts] = useState<
@@ -117,10 +124,39 @@ function ZonesDownload() {
     reader.readAsText(file);
   };
 
-  const downloadZones = () => {
-    // Here you would typically send the data to your backend
-    console.log("Data to save:", cloudflareAccounts);
-    alert(`Successfully processed ${cloudflareAccounts.length} entries`);
+  const downloadZones = async () => {
+    const zonesToDownload: ZoneToDownload[] = [];
+
+    for (const account of cloudflareAccounts) {
+      const cf = new Cloudflare({
+        apiEmail: account.email,
+        apiKey: account.apiKey,
+      });
+
+      const zones = (await cf.zones.list()).result.map((zone) => ({
+        id: zone.id,
+        name: zone.name,
+        apiEmail: account.email,
+        apiKey: account.apiKey,
+      }));
+
+      zonesToDownload.push(...zones);
+    }
+
+    // download the zones as a CSV file
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      zonesToDownload
+        .map(
+          (zone) => `${zone.id},${zone.name},${zone.apiEmail},${zone.apiKey}`
+        )
+        .join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "zones.csv");
+    document.body.appendChild(link); // Required for FF
+    link.click(); // This will download the data file named "zones.csv" with the content of "zonesToDownload"
   };
 
   return (
