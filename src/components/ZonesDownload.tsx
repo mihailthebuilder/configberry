@@ -144,14 +144,17 @@ function ZonesDownload() {
       zonesToDownload.push(...zones);
     }
 
-    // download the zones as a CSV file
+    const headers = "id,name,apiEmail,apiKey";
+
+    // Convert data to CSV format with headers
     const csvContent =
       "data:text/csv;charset=utf-8," +
-      zonesToDownload
-        .map(
+      [
+        headers,
+        ...zonesToDownload.map(
           (zone) => `${zone.id},${zone.name},${zone.apiEmail},${zone.apiKey}`
-        )
-        .join("\n");
+        ),
+      ].join("\n");
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
