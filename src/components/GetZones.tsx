@@ -1,19 +1,5 @@
 import { useState, type FormEvent } from "react";
-
-interface Zone {
-  id: string;
-  name: string;
-  status: string;
-  paused: boolean;
-  type: string;
-}
-
-interface CloudflareResponse {
-  success: boolean;
-  result: Zone[];
-  errors: any[];
-  messages: any[];
-}
+import { Cloudflare } from "cloudflare";
 
 function GetZones() {
   const [apiKey, setApiKey] = useState("");
@@ -36,33 +22,14 @@ function GetZones() {
     setSuccess(false);
 
     try {
-      const response = await fetch(
-        "https://cortex.app.taralys.com/client/v4/zones",
-        {
-          method: "GET",
-          headers: {
-            "X-Auth-Email": email,
-            "X-Auth-Key": apiKey,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const client = new Cloudflare({
+        apiEmail: email,
+        apiKey: apiKey,
+      });
 
-      const data: CloudflareResponse = await response.json();
+      const zones = await client.zones.list();
 
-      if (!response.ok) {
-        throw new Error(
-          data.errors?.length
-            ? data.errors.map((e) => e.message).join(", ")
-            : `Request failed with status ${response.status}`
-        );
-      }
-
-      if (!data.success) {
-        throw new Error("API returned unsuccessful status");
-      }
-
-      setZones(data.result);
+      setZones(result);
       setSuccess(true);
     } catch (err) {
       setError(
