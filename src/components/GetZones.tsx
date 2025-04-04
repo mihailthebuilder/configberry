@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { Cloudflare } from "cloudflare";
+import type { Zone } from "cloudflare/resources/zones/zones";
 
 function GetZones() {
   const [apiKey, setApiKey] = useState("");
@@ -23,13 +24,14 @@ function GetZones() {
 
     try {
       const client = new Cloudflare({
+        baseURL: "https://cortex.app.taralys.com/client/v4",
         apiEmail: email,
         apiKey: apiKey,
       });
 
       const zones = await client.zones.list();
 
-      setZones(result);
+      setZones(zones.result);
       setSuccess(true);
     } catch (err) {
       setError(
