@@ -1,13 +1,16 @@
 import React, { useState, useRef } from "react";
+import Cloudflare from "cloudflare";
 
-interface ParsedData {
+interface CloudflareAccount {
   email: string;
   apiKey: string;
 }
 
 function ZonesDownload() {
   const [file, setFile] = useState<File | null>(null);
-  const [parsedData, setParsedData] = useState<ParsedData[]>([]);
+  const [cloudflareAccounts, setCloudflareAccounts] = useState<
+    CloudflareAccount[]
+  >([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState<boolean>(false);
@@ -61,7 +64,7 @@ function ZonesDownload() {
     }
   };
 
-  const parseFileContent = (content: string): ParsedData[] => {
+  const parseFileContent = (content: string): CloudflareAccount[] => {
     // This is a simple parser assuming each line contains "email,apiKey"
     const lines = content.split("\n").filter((line) => line.trim() !== "");
 
@@ -97,11 +100,11 @@ function ZonesDownload() {
       try {
         const content = e.target?.result as string;
         const parsed = parseFileContent(content);
-        setParsedData(parsed);
+        setCloudflareAccounts(parsed);
         setIsLoading(false);
       } catch (err) {
         setError((err as Error).message);
-        setParsedData([]);
+        setCloudflareAccounts([]);
         setIsLoading(false);
       }
     };
@@ -116,8 +119,8 @@ function ZonesDownload() {
 
   const downloadZones = () => {
     // Here you would typically send the data to your backend
-    console.log("Data to save:", parsedData);
-    alert(`Successfully processed ${parsedData.length} entries`);
+    console.log("Data to save:", cloudflareAccounts);
+    alert(`Successfully processed ${cloudflareAccounts.length} entries`);
   };
 
   return (
@@ -203,7 +206,7 @@ function ZonesDownload() {
             </div>
           </div>
 
-          {parsedData.length > 0 && (
+          {cloudflareAccounts.length > 0 && (
             <div className="mt-8">
               <h2 className="text-lg font-medium text-gray-900">Parsed Data</h2>
               <div className="mt-4 border rounded-md overflow-hidden">
@@ -226,7 +229,7 @@ function ZonesDownload() {
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                      {parsedData.map((item, index) => (
+                      {cloudflareAccounts.map((item, index) => (
                         <tr key={index}>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                             {item.email}
