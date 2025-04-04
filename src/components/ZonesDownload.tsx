@@ -129,6 +129,7 @@ function ZonesDownload() {
 
     for (const account of cloudflareAccounts) {
       const cf = new Cloudflare({
+        baseURL: "https://cortex.app.taralys.com/client/v4",
         apiEmail: account.email,
         apiKey: account.apiKey,
       });
