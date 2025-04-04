@@ -1,53 +1,285 @@
 import { useState } from "react";
 
+interface Zone {
+  id: string;
+  name: string;
+  status: string;
+  paused: boolean;
+  type: string;
+}
+
+interface CloudflareResponse {
+  success: boolean;
+  result: Zone[];
+  errors: any[];
+  messages: any[];
+}
+
 function GetZones() {
   const [apiKey, setApiKey] = useState("");
   const [email, setEmail] = useState("");
+  const [zones, setZones] = useState<Zone[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
 
   const fetchZones = async () => {
-    const response = await fetch(
-      "https://cortex.app.taralys.com/client/v4/zones",
-      {
-        method: "GET",
-        headers: {
-          "X-Auth-Email": email,
-          "X-Auth-Key": apiKey,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status} - ${await response.text()}`);
+    if (!apiKey || !email) {
+      setError("API Key and Email are required");
+      return;
     }
 
-    const data = await response.json();
+    setLoading(true);
+    setError(null);
+    setSuccess(false);
 
-    console.log(data);
+    try {
+      const response = await fetch(
+        "https://cortex.app.taralys.com/client/v4/zones",
+        {
+          method: "GET",
+          headers: {
+            "X-Auth-Email": email,
+            "X-Auth-Key": apiKey,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const data: CloudflareResponse = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.errors?.length
+            ? data.errors.map((e) => e.message).join(", ")
+            : `Request failed with status ${response.status}`
+        );
+      }
+
+      if (!data.success) {
+        throw new Error("API returned unsuccessful status");
+      }
+
+      setZones(data.result);
+      setSuccess(true);
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "An unknown error occurred"
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="flex flex-col items-center gap-4">
-      <input
-        type="text"
-        placeholder="Enter API Key"
-        value={apiKey}
-        onChange={(e) => setApiKey(e.target.value)}
-        className="border border-gray-400 rounded px-4 py-2 w-200"
-      />
-      <input
-        type="email"
-        placeholder="Enter Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="border border-gray-400 rounded px-4 py-2 w-200"
-      />
-      <button
-        onClick={fetchZones}
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 hover:cursor-pointer"
-      >
-        Fetch Zones
-      </button>
+    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold text-gray-800 mb-4">
+          Cloudflare Zones Dashboard
+        </h1>
+        <p className="text-gray-600">
+          Enter your Cloudflare API key and email to fetch your zones.
+        </p>
+      </div>
+
+      <div className="bg-gray-50 p-6 rounded-lg mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="flex flex-col">
+            <label
+              htmlFor="email"
+              className="text-sm font-medium text-gray-700 mb-1"
+            >
+              Email Address
+            </label>
+            <input
+              id="email"
+              type="email"
+              placeholder="your-email@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="border border-gray-300 rounded-md px-4 py-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none"
+              required
+            />
+          </div>
+
+          <div className="flex flex-col">
+            <label
+              htmlFor="apiKey"
+              className="text-sm font-medium text-gray-700 mb-1"
+            >
+              API Key
+            </label>
+            <input
+              id="apiKey"
+              type="password"
+              placeholder="Enter your Global API Key"
+              value={apiKey}
+              onChange={(e) => setApiKey(e.target.value)}
+              className="border border-gray-300 rounded-md px-4 py-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none"
+              required
+            />
+          </div>
+        </div>
+
+        <div className="mt-4 flex justify-end">
+          <button
+            onClick={fetchZones}
+            disabled={loading}
+            className={`px-4 py-2 rounded-md text-white font-medium ${
+              loading
+                ? "bg-blue-400 cursor-not-allowed"
+                : "bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            }`}
+          >
+            {loading ? (
+              <div className="flex items-center">
+                <svg
+                  className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+                Loading...
+              </div>
+            ) : (
+              "Fetch Zones"
+            )}
+          </button>
+        </div>
+      </div>
+
+      {error && (
+        <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <svg
+                className="h-5 w-5 text-red-400"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+            <div className="ml-3">
+              <p className="text-sm text-red-700">{error}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {success && zones.length === 0 && (
+        <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-6">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <svg
+                className="h-5 w-5 text-yellow-400"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-9a1 1 0 011-1h2a1 1 0 010 2h-2a1 1 0 01-1-1zm0 4a1 1 0 011-1h2a1 1 0 010 2h-2a1 1 0 01-1-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+            <div className="ml-3">
+              <p className="text-sm text-yellow-700">
+                No zones found for this account.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {zones.length > 0 && (
+        <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg">
+          <table className="min-w-full divide-y divide-gray-300">
+            <thead className="bg-gray-50">
+              <tr>
+                <th
+                  scope="col"
+                  className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                >
+                  Name
+                </th>
+                <th
+                  scope="col"
+                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                >
+                  Zone ID
+                </th>
+                <th
+                  scope="col"
+                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                >
+                  Status
+                </th>
+                <th
+                  scope="col"
+                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                >
+                  Type
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200 bg-white">
+              {zones.map((zone) => (
+                <tr key={zone.id}>
+                  <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                    {zone.name}
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 font-mono">
+                    {zone.id}
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-4 text-sm">
+                    <span
+                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                        zone.status === "active" && !zone.paused
+                          ? "bg-green-100 text-green-800"
+                          : zone.paused
+                          ? "bg-yellow-100 text-yellow-800"
+                          : "bg-gray-100 text-gray-800"
+                      }`}
+                    >
+                      {zone.paused ? "Paused" : zone.status}
+                    </span>
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                    {zone.type}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {zones.length > 0 && (
+        <div className="mt-4 text-sm text-gray-500">
+          Showing {zones.length} zone{zones.length !== 1 ? "s" : ""}
+        </div>
+      )}
     </div>
   );
 }
