@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 interface ParsedData {
   email: string;
@@ -10,6 +10,8 @@ function ZonesDownload() {
   const [parsedData, setParsedData] = useState<ParsedData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const dropAreaRef = useRef<HTMLDivElement>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -19,9 +21,48 @@ function ZonesDownload() {
     }
   };
 
+  const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+
+    const droppedFiles = e.dataTransfer.files;
+    if (droppedFiles && droppedFiles.length > 0) {
+      const droppedFile = droppedFiles[0];
+      // Check if file is text based
+      if (
+        droppedFile.type === "text/plain" ||
+        droppedFile.type === "text/csv" ||
+        droppedFile.name.endsWith(".txt") ||
+        droppedFile.name.endsWith(".csv")
+      ) {
+        setFile(droppedFile);
+        setError(null);
+      } else {
+        setError("Please upload a CSV or TXT file");
+      }
+    }
+  };
+
   const parseFileContent = (content: string): ParsedData[] => {
     // This is a simple parser assuming each line contains "email,apiKey"
-    // You can adjust the parsing logic based on your file format
     const lines = content.split("\n").filter((line) => line.trim() !== "");
 
     return lines.map((line) => {
@@ -92,7 +133,18 @@ function ZonesDownload() {
           </p>
 
           <div className="mt-6">
-            <div className="flex items-center justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+            <div
+              ref={dropAreaRef}
+              className={`flex items-center justify-center px-6 pt-5 pb-6 border-2 ${
+                isDragging
+                  ? "border-indigo-300 bg-indigo-50"
+                  : "border-gray-300"
+              } border-dashed rounded-md`}
+              onDragEnter={handleDragEnter}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+            >
               <div className="space-y-1 text-center">
                 <svg
                   className="mx-auto h-12 w-12 text-gray-400"
