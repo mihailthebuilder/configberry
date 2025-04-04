@@ -42,7 +42,6 @@ function ZonesDownload() {
   };
 
   const handleUpload = () => {
-    console.log("File to upload:", file);
     if (!file) {
       setError("Please select a file first");
       return;
