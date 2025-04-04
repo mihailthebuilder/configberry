@@ -2,7 +2,7 @@ import { useState, type FormEvent } from "react";
 import { Cloudflare } from "cloudflare";
 import type { Zone } from "cloudflare/resources/zones/zones";
 
-function GetZones() {
+function Zones() {
   const [apiKey, setApiKey] = useState("");
   const [email, setEmail] = useState("");
   const [zones, setZones] = useState<Zone[]>([]);
@@ -259,4 +259,4 @@ function GetZones() {
   );
 }
 
-export default GetZones;
+export default Zones;
