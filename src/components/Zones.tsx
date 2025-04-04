@@ -9,6 +9,7 @@ function Zones() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [selectedZones, setSelectedZones] = useState<Zone[]>([]);
 
   const fetchZones = async (e: FormEvent) => {
     e.preventDefault();
@@ -188,9 +189,10 @@ function Zones() {
           <table className="min-w-full divide-y divide-gray-300">
             <thead className="bg-gray-50">
               <tr>
+                <th></th>
                 <th
                   scope="col"
-                  className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                  className="py-3.5 pr-3 text-left text-sm font-semibold text-gray-900"
                 >
                   Name
                 </th>
@@ -205,16 +207,39 @@ function Zones() {
             <tbody className="divide-y divide-gray-200 bg-white">
               {zones.map((zone) => (
                 <tr key={zone.id}>
-                  <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                  <td>
+                    <input
+                      type="checkbox"
+                      className="mt-2 text-blue-600 focus:ring-blue-500 border-gray-300 rounded hover:cursor-pointer"
+                      onChange={() => {
+                        if (selectedZones.includes(zone)) {
+                          setSelectedZones((prev) =>
+                            prev.filter((z) => z.id !== zone.id)
+                          );
+                        } else {
+                          setSelectedZones((prev) => [...prev, zone]);
+                        }
+                      }}
+                      checked={selectedZones.includes(zone)}
+                    />
+                  </td>
+                  <td className="whitespace-nowrap py-2 pr-3 text-sm font-medium text-gray-900">
                     {zone.name}
                   </td>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 font-mono">
+                  <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500 font-mono">
                     {zone.id}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {zones.length > 0 && (
+        <div className="mt-4 text-sm text-gray-500">
+          {selectedZones.length} zone{selectedZones.length !== 1 ? "s" : ""}{" "}
+          selected
         </div>
       )}
     </div>
