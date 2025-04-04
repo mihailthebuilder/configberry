@@ -210,7 +210,7 @@ function Zones() {
                   <td>
                     <input
                       type="checkbox"
-                      className="mt-2 text-blue-600 focus:ring-blue-500 border-gray-300 rounded hover:cursor-pointer"
+                      className="w-6 h-6 mt-2 ml-2 text-blue-600 focus:ring-blue-500 border-gray-300 rounded hover:cursor-pointer"
                       onChange={() => {
                         if (selectedZones.includes(zone)) {
                           setSelectedZones((prev) =>
