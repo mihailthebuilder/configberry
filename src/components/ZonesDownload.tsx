@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Cloudflare from "cloudflare";
 
 interface CloudflareAccount {
@@ -22,6 +22,13 @@ function ZonesDownload() {
   const [error, setError] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const dropAreaRef = useRef<HTMLDivElement>(null);
+
+  // Process file automatically when it changes
+  useEffect(() => {
+    if (file) {
+      processFile();
+    }
+  }, [file]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -92,7 +99,7 @@ function ZonesDownload() {
     });
   };
 
-  const handleUpload = () => {
+  const processFile = () => {
     if (!file) {
       setError("Please select a file first");
       return;
@@ -125,42 +132,49 @@ function ZonesDownload() {
   };
 
   const downloadZones = async () => {
-    const zonesToDownload: ZoneToDownload[] = [];
+    setIsLoading(true);
+    try {
+      const zonesToDownload: ZoneToDownload[] = [];
 
-    for (const account of cloudflareAccounts) {
-      const cf = new Cloudflare({
-        baseURL: "https://cortex.app.taralys.com/client/v4",
-        apiEmail: account.email,
-        apiKey: account.apiKey,
-      });
+      for (const account of cloudflareAccounts) {
+        const cf = new Cloudflare({
+          baseURL: "https://cortex.app.taralys.com/client/v4",
+          apiEmail: account.email,
+          apiKey: account.apiKey,
+        });
 
-      const zones = (await cf.zones.list()).result.map((zone) => ({
-        id: zone.id,
-        name: zone.name,
-        apiEmail: account.email,
-        apiKey: account.apiKey,
-      }));
+        const zones = (await cf.zones.list()).result.map((zone) => ({
+          id: zone.id,
+          name: zone.name,
+          apiEmail: account.email,
+          apiKey: account.apiKey,
+        }));
 
-      zonesToDownload.push(...zones);
+        zonesToDownload.push(...zones);
+      }
+
+      const headers = "id,name,apiEmail,apiKey";
+
+      // Convert data to CSV format with headers
+      const csvContent =
+        "data:text/csv;charset=utf-8," +
+        [
+          headers,
+          ...zonesToDownload.map(
+            (zone) => `${zone.id},${zone.name},${zone.apiEmail},${zone.apiKey}`
+          ),
+        ].join("\n");
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "zones.csv");
+      document.body.appendChild(link); // Required for FF
+      link.click(); // This will download the data file named "zones.csv" with the content of "zonesToDownload"
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setIsLoading(false);
     }
-
-    const headers = "id,name,apiEmail,apiKey";
-
-    // Convert data to CSV format with headers
-    const csvContent =
-      "data:text/csv;charset=utf-8," +
-      [
-        headers,
-        ...zonesToDownload.map(
-          (zone) => `${zone.id},${zone.name},${zone.apiEmail},${zone.apiKey}`
-        ),
-      ].join("\n");
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "zones.csv");
-    document.body.appendChild(link); // Required for FF
-    link.click(); // This will download the data file named "zones.csv" with the content of "zonesToDownload"
   };
 
   return (
@@ -233,17 +247,6 @@ function ZonesDownload() {
             )}
 
             {error && <div className="mt-2 text-sm text-red-600">{error}</div>}
-
-            <div className="mt-5 flex justify-end">
-              <button
-                type="button"
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 hover:cursor-pointer"
-                onClick={handleUpload}
-                disabled={isLoading || !file}
-              >
-                {isLoading ? "Processing..." : "Process File"}
-              </button>
-            </div>
           </div>
 
           {cloudflareAccounts.length > 0 && (
@@ -290,8 +293,9 @@ function ZonesDownload() {
                   type="button"
                   className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 hover:cursor-pointer"
                   onClick={downloadZones}
+                  disabled={isLoading}
                 >
-                  Download zones
+                  {isLoading ? "Processing..." : "Download zones"}
                 </button>
               </div>
             </div>
