@@ -291,7 +291,11 @@ function ZonesDownload() {
               <div className="mt-5 flex justify-end">
                 <button
                   type="button"
-                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 hover:cursor-pointer"
+                  className={`inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 hover:cursor-pointer ${
+                    isLoading
+                      ? "bg-gray-600"
+                      : "bg-green-600 hover:bg-green-700 focus:ring-green-500 "
+                  } `}
                   onClick={downloadZones}
                   disabled={isLoading}
                 >
