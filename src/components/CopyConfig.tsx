@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import FileUploader from "./FileUploader";
+import type { CloudflareZone } from "./ZonesDownload";
 
 interface CopyPlanConfig {
   apiKey: string;
@@ -9,56 +10,54 @@ interface CopyPlanConfig {
 }
 
 function ZoneCopyPlan() {
-  const [config, setConfig] = useState<CopyPlanConfig>({
+  const [sourceZone, setSourceZone] = useState<CopyPlanConfig>({
     apiKey: "",
     apiEmail: "",
     zoneId: "",
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [fileUploaded, setFileUploaded] = useState<boolean>(false);
+  const [zonesToApply, setZonesToApply] = useState<CloudflareZone[]>([]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setConfig({
-      ...config,
+    setSourceZone({
+      ...sourceZone,
       [name]: value,
     });
   };
 
-  const handleFileProcessed = (content: string, fileName: string) => {
+  const handleFileProcessed = (content: string) => {
     try {
-      setConfig({
-        ...config,
-        fileName: fileName,
-      });
-      setFileUploaded(true);
+      const parsed = parseFileContent(content);
+      setZonesToApply(parsed);
       setError(null);
     } catch (err) {
       setError((err as Error).message);
-      setFileUploaded(false);
+      setZonesToApply([]);
     }
   };
 
   const handleError = (errorMessage: string) => {
     setError(errorMessage || null);
-    setFileUploaded(false);
   };
 
   const createCopyPlan = async () => {
     setIsLoading(true);
     try {
       // Validate required fields
-      if (!config.apiKey || !config.apiEmail || !config.zoneId) {
+      if (!sourceZone.apiKey || !sourceZone.apiEmail || !sourceZone.zoneId) {
         throw new Error("API Key, API Email, and Zone ID are required");
       }
 
-      if (!fileUploaded) {
-        throw new Error("Please upload a configuration file");
+      if (zonesToApply.length === 0) {
+        throw new Error(
+          "No zones to apply. Please upload a valid list of zones."
+        );
       }
 
       // Here you would implement the API call to create the copy plan
-      console.log("Creating copy plan with config:", config);
+      console.log("Creating copy plan with config:", sourceZone);
 
       // Simulate API call delay
       await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -99,8 +98,9 @@ function ZoneCopyPlan() {
                 id="apiEmail"
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                 placeholder="your.email@example.com"
-                value={config.apiEmail}
+                value={sourceZone.apiEmail}
                 onChange={handleInputChange}
+                required
               />
             </div>
 
@@ -118,8 +118,9 @@ function ZoneCopyPlan() {
                 id="apiKey"
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                 placeholder="API Key"
-                value={config.apiKey}
+                value={sourceZone.apiKey}
                 onChange={handleInputChange}
+                required
               />
             </div>
 
@@ -137,8 +138,9 @@ function ZoneCopyPlan() {
                 id="zoneId"
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                 placeholder="Zone ID"
-                value={config.zoneId}
+                value={sourceZone.zoneId}
                 onChange={handleInputChange}
+                required
               />
             </div>
 
@@ -159,9 +161,9 @@ function ZoneCopyPlan() {
 
           {error && <div className="mt-4 text-sm text-red-600">{error}</div>}
 
-          {fileUploaded && (
+          {zonesToApply.length > 0 && (
             <div className="mt-4 text-sm text-green-600">
-              File uploaded: {config.fileName}
+              File uploaded: {sourceZone.fileName}
             </div>
           )}
 
@@ -184,5 +186,27 @@ function ZoneCopyPlan() {
     </div>
   );
 }
+
+const parseFileContent = (content: string): CloudflareZone[] => {
+  const lines = content.split("\n").filter((line) => line.trim() !== "");
+
+  return lines.map((line) => {
+    const [name, id, apiEmail, apiKey] = line
+      .split(",")
+      .map((item) => item.trim());
+
+    if (!apiEmail || !apiKey) {
+      throw new Error(`Invalid line format: ${line}`);
+    }
+
+    // Simple email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(apiEmail)) {
+      throw new Error(`Invalid email format: ${apiEmail}`);
+    }
+
+    return { name, id, apiEmail, apiKey };
+  });
+};
 
 export default ZoneCopyPlan;

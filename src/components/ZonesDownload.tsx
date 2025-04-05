@@ -7,7 +7,7 @@ interface CloudflareAccount {
   apiKey: string;
 }
 
-interface ZoneToDownload {
+export interface CloudflareZone {
   id: string;
   name: string;
   apiEmail: string;
@@ -20,26 +20,6 @@ function ZonesDownload() {
   >([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-
-  const parseFileContent = (content: string): CloudflareAccount[] => {
-    const lines = content.split("\n").filter((line) => line.trim() !== "");
-
-    return lines.map((line) => {
-      const [email, apiKey] = line.split(",").map((item) => item.trim());
-
-      if (!email || !apiKey) {
-        throw new Error(`Invalid line format: ${line}`);
-      }
-
-      // Simple email validation
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        throw new Error(`Invalid email format: ${email}`);
-      }
-
-      return { email, apiKey };
-    });
-  };
 
   const handleFileProcessed = (content: string) => {
     try {
@@ -59,7 +39,7 @@ function ZonesDownload() {
   const downloadZones = async () => {
     setIsLoading(true);
     try {
-      const zonesToDownload: ZoneToDownload[] = [];
+      const zonesToDownload: CloudflareZone[] = [];
 
       for (const account of cloudflareAccounts) {
         const cf = new Cloudflare({
@@ -184,5 +164,25 @@ function ZonesDownload() {
     </div>
   );
 }
+
+const parseFileContent = (content: string): CloudflareAccount[] => {
+  const lines = content.split("\n").filter((line) => line.trim() !== "");
+
+  return lines.map((line) => {
+    const [email, apiKey] = line.split(",").map((item) => item.trim());
+
+    if (!email || !apiKey) {
+      throw new Error(`Invalid line format: ${line}`);
+    }
+
+    // Simple email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      throw new Error(`Invalid email format: ${email}`);
+    }
+
+    return { email, apiKey };
+  });
+};
 
 export default ZonesDownload;
