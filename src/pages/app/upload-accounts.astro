@@ -1,4 +1,5 @@
 ---
+import ZonesDownload from "@components/ZonesDownload";
 import "@styles/global.css";
 ---
 
@@ -11,8 +12,7 @@ import "@styles/global.css";
   </head>
   <body>
     <main>
-      <a class="mx-auto max-w-lg" href="/app/upload-accounts">Upload accounts</a
-      >
+      <ZonesDownload client:only="react" />
     </main>
   </body>
 </html>
