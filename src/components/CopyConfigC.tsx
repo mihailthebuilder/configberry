@@ -153,8 +153,8 @@ function CopyConfigC() {
                 onFileProcessed={handleFileProcessed}
                 onError={handleError}
                 acceptedFileTypes=".csv,.txt"
-                maxFileSizeMB={5}
-                fileDescription="JSON or YAML"
+                maxFileSizeMB={10}
+                fileDescription="CSV or TXT"
               />
             </div>
           </div>
