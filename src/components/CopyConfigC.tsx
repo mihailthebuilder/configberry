@@ -188,9 +188,9 @@ function CopyConfigC() {
 }
 
 const parseFileContent = (content: string): ZoneCsvRow[] => {
-  const lines = content.split("\n").filter((line) => line.trim() !== "");
+  let lines = content.split("\n").filter((line) => line.trim() !== "");
 
-  if (lines[0].startsWith("name")) {
+  if (lines[0].startsWith("zoneId")) {
     lines.shift();
   }
 
@@ -206,6 +206,7 @@ const parseFileContent = (content: string): ZoneCsvRow[] => {
     // Simple email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(apiEmail)) {
+      console.error(`Invalid email format: ${apiEmail}`);
       throw new Error(`Invalid email format: ${apiEmail}`);
     }
 
