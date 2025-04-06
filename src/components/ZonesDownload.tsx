@@ -7,13 +7,6 @@ interface CloudflareAccount {
   apiKey: string;
 }
 
-export interface ZoneCsvRow {
-  zoneId: string;
-  zoneName: string;
-  apiEmail: string;
-  apiKey: string;
-}
-
 function ZonesDownload() {
   const [cloudflareAccounts, setCloudflareAccounts] = useState<
     CloudflareAccount[]
