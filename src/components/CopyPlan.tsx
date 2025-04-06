@@ -48,6 +48,7 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
       }
     }
     setIsLoading(false);
+    setResults(results);
   };
 
   return (
