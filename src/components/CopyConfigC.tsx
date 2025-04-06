@@ -260,7 +260,14 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
       try {
         await client.rulesets.phases.update("http_request_firewall_custom", {
           zone_id: zone.zoneId,
-          rules: cloudflarePhase.rules,
+          rules: cloudflarePhase.rules.map((rule) => {
+            return {
+              enabled: rule.enabled,
+              action: rule.action,
+              expression: rule.expression,
+              description: rule.description,
+            };
+          }),
         });
 
         results.push({ zoneName: zone.zoneName });
