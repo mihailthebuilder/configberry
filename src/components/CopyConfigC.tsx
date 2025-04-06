@@ -285,6 +285,24 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
           </div>
         ))}
       </div>
+
+      {/* Moved section to display zone names to the bottom */}
+      <div className="mt-6 bg-gray-50">
+        <h2 className="text-lg font-medium text-gray-900 mb-3">
+          Zones to apply the rules to:
+        </h2>
+
+        <div className="mt-2 flex flex-wrap gap-2">
+          {zonesToApply.map((zone) => (
+            <span
+              key={zone.zoneId}
+              className="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full"
+            >
+              {zone.zoneName}
+            </span>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
