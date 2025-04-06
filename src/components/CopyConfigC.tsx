@@ -182,14 +182,10 @@ function CopyConfigC() {
           </div>
 
           {cloudflarePhase && (
-            <div className="mt-8">
-              <h2 className="text-lg font-medium text-gray-900">
-                Rules to apply
-              </h2>
-              <pre className="mt-4 bg-gray-100 p-4 rounded-md overflow-x-auto">
-                {JSON.stringify(displayRules(cloudflarePhase), null, 2)}
-              </pre>
-            </div>
+            <CopyPlan
+              cloudflarePhase={cloudflarePhase}
+              zonesToApply={zonesToApply}
+            />
           )}
         </div>
       </div>
@@ -236,5 +232,21 @@ const parseFileContent = (content: string): ZoneCsvRow[] => {
     return { zoneId, zoneName, apiEmail, apiKey };
   });
 };
+
+interface CopyPlanProps {
+  cloudflarePhase: PhaseGetResponse;
+  zonesToApply: ZoneCsvRow[];
+}
+
+function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
+  return (
+    <div className="mt-8">
+      <h2 className="text-lg font-medium text-gray-900">Rules to apply</h2>
+      <pre className="mt-4 bg-gray-100 p-4 rounded-md overflow-x-auto">
+        {JSON.stringify(displayRules(cloudflarePhase), null, 2)}
+      </pre>
+    </div>
+  );
+}
 
 export default CopyConfigC;
