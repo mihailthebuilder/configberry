@@ -8,13 +8,13 @@ interface FileUploaderProps {
   fileDescription?: string;
 }
 
-const FileUploader: React.FC<FileUploaderProps> = ({
+function FileUploader({
   onFileProcessed,
   onError,
   acceptedFileTypes = ".csv,.txt",
   maxFileSizeMB = 10,
   fileDescription = "CSV or TXT",
-}) => {
+}: FileUploaderProps) {
   const [file, setFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isDragging, setIsDragging] = useState<boolean>(false);
@@ -185,6 +185,6 @@ const FileUploader: React.FC<FileUploaderProps> = ({
       )}
     </div>
   );
-};
+}
 
 export default FileUploader;
