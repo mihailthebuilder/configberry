@@ -242,9 +242,34 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
   return (
     <div className="mt-8">
       <h2 className="text-lg font-medium text-gray-900">Rules to apply</h2>
-      <pre className="mt-4 bg-gray-100 p-4 rounded-md overflow-x-auto">
-        {JSON.stringify(displayRules(cloudflarePhase), null, 2)}
-      </pre>
+      <div className="mt-4 bg-gray-100 p-4 rounded-md overflow-x-auto">
+        {displayRules(cloudflarePhase).map((rule) => (
+          <div
+            key={rule.id}
+            className="mb-4 border-b border-gray-200 pb-4 last:border-b-0 last:pb-0"
+          >
+            <div className="flex justify-between items-center">
+              <h3 className="font-medium">{rule.name}</h3>
+              <span
+                className={`px-2 py-1 text-xs rounded-full ${
+                  rule.enabled
+                    ? "bg-green-100 text-green-800"
+                    : "bg-red-100 text-red-800"
+                }`}
+              >
+                {rule.enabled ? "Enabled" : "Disabled"}
+              </span>
+            </div>
+            <p className="text-sm text-gray-600 mt-1">{rule.action}</p>
+            <div className="mt-2 text-xs">
+              <span className="font-medium">Expression:</span>
+              <code className="ml-2 bg-gray-200 px-1 py-0.5 rounded">
+                {rule.expression}
+              </code>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
