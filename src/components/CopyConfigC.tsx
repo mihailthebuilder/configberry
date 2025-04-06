@@ -240,13 +240,38 @@ interface CopyPlanProps {
 
 interface ZoneCopyResult {
   zoneName: string;
-  zoneId: string;
   error?: string;
 }
 
 function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+
+  const applyRulesToZones = async () => {
+    setIsLoading(true);
+    const results: ZoneCopyResult[] = [];
+    for (const zone of zonesToApply) {
+      const client = new Cloudflare({
+        baseURL: "https://cortex.app.taralys.com/client/v4",
+        apiEmail: zone.apiEmail,
+        apiKey: zone.apiKey,
+      });
+
+      try {
+        await client.rulesets.phases.update("http_request_firewall_custom", {
+          zone_id: zone.zoneId,
+          rules: cloudflarePhase.rules,
+        });
+
+        results.push({ zoneName: zone.zoneName });
+      } catch (err) {
+        results.push({
+          zoneName: zone.zoneName,
+          error: (err as Error).message,
+        });
+      }
+    }
+    setIsLoading(false);
+  };
 
   return (
     <div className="mt-8">
@@ -320,7 +345,7 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
               ? "bg-gray-600"
               : "bg-orange-500 hover:bg-orange-700 focus:ring-orange-500"
           }`}
-          // onClick={createCopyPlan}
+          onClick={applyRulesToZones}
           disabled={isLoading}
         >
           {isLoading ? "Processing..." : "Apply Rules to Zones"}
