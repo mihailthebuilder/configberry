@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import FileUploader from "./FileUploader";
-import type { CloudflareZone } from "./ZonesDownload";
+import type { ZoneCsvRow } from "./ZonesDownload";
 
 interface CopyPlanConfig {
   apiKey: string;
@@ -17,7 +17,7 @@ function CopyConfigC() {
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [zonesToApply, setZonesToApply] = useState<CloudflareZone[]>([]);
+  const [zonesToApply, setZonesToApply] = useState<ZoneCsvRow[]>([]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -187,7 +187,7 @@ function CopyConfigC() {
   );
 }
 
-const parseFileContent = (content: string): CloudflareZone[] => {
+const parseFileContent = (content: string): ZoneCsvRow[] => {
   const lines = content.split("\n").filter((line) => line.trim() !== "");
 
   if (lines[0].startsWith("name")) {
@@ -195,7 +195,7 @@ const parseFileContent = (content: string): CloudflareZone[] => {
   }
 
   return lines.map((line) => {
-    const [name, id, apiEmail, apiKey] = line
+    const [zoneId, zoneName, apiEmail, apiKey] = line
       .split(",")
       .map((item) => item.trim());
 
@@ -209,7 +209,7 @@ const parseFileContent = (content: string): CloudflareZone[] => {
       throw new Error(`Invalid email format: ${apiEmail}`);
     }
 
-    return { name, id, apiEmail, apiKey };
+    return { zoneId, zoneName, apiEmail, apiKey };
   });
 };
 

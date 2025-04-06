@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Cloudflare from "cloudflare";
 import FileUploader from "./FileUploader"; // Import the new component
 
@@ -7,9 +7,9 @@ interface CloudflareAccount {
   apiKey: string;
 }
 
-export interface CloudflareZone {
-  id: string;
-  name: string;
+export interface ZoneCsvRow {
+  zoneId: string;
+  zoneName: string;
   apiEmail: string;
   apiKey: string;
 }
@@ -39,7 +39,7 @@ function ZonesDownload() {
   const downloadZones = async () => {
     setIsLoading(true);
     try {
-      const zonesToDownload: CloudflareZone[] = [];
+      const zonesToDownload: ZoneCsvRow[] = [];
 
       for (const account of cloudflareAccounts) {
         const cf = new Cloudflare({
@@ -49,8 +49,8 @@ function ZonesDownload() {
         });
 
         const zones = (await cf.zones.list()).result.map((zone) => ({
-          id: zone.id,
-          name: zone.name,
+          zoneId: zone.id,
+          zoneName: zone.name,
           apiEmail: account.email,
           apiKey: account.apiKey,
         }));
@@ -66,7 +66,8 @@ function ZonesDownload() {
         [
           headers,
           ...zonesToDownload.map(
-            (zone) => `${zone.id},${zone.name},${zone.apiEmail},${zone.apiKey}`
+            (zone) =>
+              `${zone.zoneId},${zone.zoneName},${zone.apiEmail},${zone.apiKey}`
           ),
         ].join("\n");
       const encodedUri = encodeURI(csvContent);
