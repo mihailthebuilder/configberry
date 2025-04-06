@@ -245,6 +245,7 @@ interface ZoneCopyResult {
 
 function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const [results, setResults] = useState<ZoneCopyResult[]>([]);
 
   const applyRulesToZones = async () => {
     setIsLoading(true);
