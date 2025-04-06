@@ -16,7 +16,7 @@ function CopyConfigC() {
     apiEmail: "",
     zoneId: "",
   });
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [zonesToApply, setZonesToApply] = useState<ZoneCsvRow[]>([]);
   const [cloudflarePhase, setCloudflarePhase] = useState<PhaseGetResponse>();
@@ -238,7 +238,16 @@ interface CopyPlanProps {
   zonesToApply: ZoneCsvRow[];
 }
 
+interface ZoneCopyResult {
+  zoneName: string;
+  zoneId: string;
+  error?: string;
+}
+
 function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   return (
     <div className="mt-8">
       <h2 className="text-lg font-medium text-gray-900">Rules to apply</h2>
@@ -286,7 +295,6 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
         ))}
       </div>
 
-      {/* Moved section to display zone names to the bottom */}
       <div className="mt-6 bg-gray-50">
         <h2 className="text-lg font-medium text-gray-900 mb-3">
           Zones to apply the rules to:
@@ -302,6 +310,21 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
             </span>
           ))}
         </div>
+      </div>
+
+      <div className="mt-8 flex justify-end">
+        <button
+          type="button"
+          className={`inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 hover:cursor-pointer ${
+            isLoading
+              ? "bg-gray-600"
+              : "bg-orange-500 hover:bg-orange-700 focus:ring-orange-500"
+          }`}
+          // onClick={createCopyPlan}
+          disabled={isLoading}
+        >
+          {isLoading ? "Processing..." : "Apply Rules to Zones"}
+        </button>
       </div>
     </div>
   );
