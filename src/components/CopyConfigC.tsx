@@ -152,7 +152,7 @@ function CopyConfigC() {
               <FileUploader
                 onFileProcessed={handleFileProcessed}
                 onError={handleError}
-                acceptedFileTypes=".json,.yml,.yaml"
+                acceptedFileTypes=".csv,.txt"
                 maxFileSizeMB={5}
                 fileDescription="JSON or YAML"
               />
@@ -189,6 +189,10 @@ function CopyConfigC() {
 
 const parseFileContent = (content: string): CloudflareZone[] => {
   const lines = content.split("\n").filter((line) => line.trim() !== "");
+
+  if (lines[0].startsWith("name")) {
+    lines.shift();
+  }
 
   return lines.map((line) => {
     const [name, id, apiEmail, apiKey] = line
