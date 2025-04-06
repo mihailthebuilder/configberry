@@ -248,30 +248,12 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
             key={rule.id}
             className="mb-4 border-b border-gray-200 pb-4 last:border-b-0 last:pb-0"
           >
-            <div className="flex justify-between items-start">
+            <div className="flex justify-between items-start mb-2">
               <div className="flex-1">
-                <div className="mb-2">
-                  <span className="text-xs text-gray-500 uppercase font-semibold">
-                    Rule name:
-                  </span>
-                  <p className="text-sm text-gray-800">{rule.name}</p>
-                </div>
-
-                <div className="mb-2">
-                  <span className="text-xs text-gray-500 uppercase font-semibold">
-                    Rule action:
-                  </span>
-                  <p className="text-sm text-gray-800">{rule.action}</p>
-                </div>
-
-                <div className="mb-2">
-                  <span className="text-xs text-gray-500 uppercase font-semibold">
-                    Expression:
-                  </span>
-                  <p className="text-sm text-gray-800 break-all font-mono bg-gray-200 px-2 py-1 mt-1 rounded">
-                    {rule.expression}
-                  </p>
-                </div>
+                <span className="text-xs text-gray-500 uppercase font-semibold">
+                  Rule name:
+                </span>
+                <p className="text-sm text-gray-800">{rule.name}</p>
               </div>
 
               <span
@@ -283,6 +265,22 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
               >
                 {rule.enabled ? "Enabled" : "Disabled"}
               </span>
+            </div>
+
+            <div className="mb-2">
+              <span className="text-xs text-gray-500 uppercase font-semibold">
+                Rule action:
+              </span>
+              <p className="text-sm text-gray-800">{rule.action}</p>
+            </div>
+
+            <div>
+              <span className="text-xs text-gray-500 uppercase font-semibold">
+                Expression:
+              </span>
+              <div className="w-full font-mono text-sm bg-gray-200 px-3 py-2 mt-1 rounded break-all">
+                {rule.expression}
+              </div>
             </div>
           </div>
         ))}
