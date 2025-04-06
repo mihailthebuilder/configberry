@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import FileUploader from "./FileUploader";
 import type { ZoneCsvRow } from "./ZonesDownload";
+import Cloudflare from "cloudflare";
+import type { PhaseGetResponse } from "cloudflare/resources/rulesets/phases/phases";
 
 interface CopyPlanConfig {
   apiKey: string;
   apiEmail: string;
   zoneId: string;
-  fileName?: string;
 }
 
 function CopyConfigC() {
@@ -18,6 +19,7 @@ function CopyConfigC() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [zonesToApply, setZonesToApply] = useState<ZoneCsvRow[]>([]);
+  const [cloudflarePhase, setCloudflarePhase] = useState<PhaseGetResponse>();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -56,14 +58,17 @@ function CopyConfigC() {
         );
       }
 
-      // Here you would implement the API call to create the copy plan
-      console.log("Creating copy plan with config:", sourceZone);
+      const client = new Cloudflare({
+        baseURL: "https://cortex.app.taralys.com/client/v4",
+        apiEmail: sourceZone.apiEmail,
+        apiKey: sourceZone.apiKey,
+      });
 
-      // Simulate API call delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // Success handling would go here
-      alert("Copy plan created successfully!");
+      setCloudflarePhase(
+        await client.rulesets.phases.get("http_request_firewall_custom", {
+          zone_id: sourceZone.zoneId,
+        })
+      );
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -73,7 +78,7 @@ function CopyConfigC() {
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+      <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
         <div className="px-4 py-5 sm:p-6">
           <h1 className="text-lg font-medium text-gray-900">
             Zone Copy Plan Configuration
@@ -161,12 +166,6 @@ function CopyConfigC() {
 
           {error && <div className="mt-4 text-sm text-red-600">{error}</div>}
 
-          {zonesToApply.length > 0 && (
-            <div className="mt-4 text-sm text-green-600">
-              File uploaded: {sourceZone.fileName}
-            </div>
-          )}
-
           <div className="mt-8 flex justify-end">
             <button
               type="button"
@@ -181,11 +180,35 @@ function CopyConfigC() {
               {isLoading ? "Processing..." : "Create Copy Plan"}
             </button>
           </div>
+
+          {cloudflarePhase && (
+            <div className="mt-8">
+              <h2 className="text-lg font-medium text-gray-900">
+                Rules to apply
+              </h2>
+              <pre className="mt-4 bg-gray-100 p-4 rounded-md overflow-x-auto">
+                {JSON.stringify(displayRules(cloudflarePhase), null, 2)}
+              </pre>
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 }
+
+const displayRules = (phase: PhaseGetResponse) => {
+  const rules = phase.rules.map((rule) => {
+    return {
+      id: rule.id,
+      name: rule.action,
+      action: rule.description,
+      enabled: rule.enabled,
+      expression: rule.expression,
+    };
+  });
+  return rules;
+};
 
 const parseFileContent = (content: string): ZoneCsvRow[] => {
   let lines = content.split("\n").filter((line) => line.trim() !== "");
