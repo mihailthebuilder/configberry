@@ -9,7 +9,7 @@ interface CopyPlanConfig {
   fileName?: string;
 }
 
-function ZoneCopyPlan() {
+function CopyConfigC() {
   const [sourceZone, setSourceZone] = useState<CopyPlanConfig>({
     apiKey: "",
     apiEmail: "",
@@ -209,4 +209,4 @@ const parseFileContent = (content: string): CloudflareZone[] => {
   });
 };
 
-export default ZoneCopyPlan;
+export default CopyConfigC;
