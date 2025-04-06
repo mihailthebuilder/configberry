@@ -197,8 +197,8 @@ const displayRules = (phase: PhaseGetResponse) => {
   const rules = phase.rules.map((rule) => {
     return {
       id: rule.id,
-      name: rule.action,
-      action: rule.description,
+      name: rule.description,
+      action: rule.action,
       enabled: rule.enabled,
       expression: rule.expression,
     };
@@ -248,10 +248,34 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
             key={rule.id}
             className="mb-4 border-b border-gray-200 pb-4 last:border-b-0 last:pb-0"
           >
-            <div className="flex justify-between items-center">
-              <h3 className="font-medium">{rule.name}</h3>
+            <div className="flex justify-between items-start">
+              <div className="flex-1">
+                <div className="mb-2">
+                  <span className="text-xs text-gray-500 uppercase font-semibold">
+                    Rule name:
+                  </span>
+                  <p className="text-sm text-gray-800">{rule.name}</p>
+                </div>
+
+                <div className="mb-2">
+                  <span className="text-xs text-gray-500 uppercase font-semibold">
+                    Rule action:
+                  </span>
+                  <p className="text-sm text-gray-800">{rule.action}</p>
+                </div>
+
+                <div className="mb-2">
+                  <span className="text-xs text-gray-500 uppercase font-semibold">
+                    Expression:
+                  </span>
+                  <p className="text-sm text-gray-800 break-all font-mono bg-gray-200 px-2 py-1 mt-1 rounded">
+                    {rule.expression}
+                  </p>
+                </div>
+              </div>
+
               <span
-                className={`px-2 py-1 text-xs rounded-full ${
+                className={`ml-2 px-2 py-1 text-xs rounded-full whitespace-nowrap ${
                   rule.enabled
                     ? "bg-green-100 text-green-800"
                     : "bg-red-100 text-red-800"
@@ -259,13 +283,6 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
               >
                 {rule.enabled ? "Enabled" : "Disabled"}
               </span>
-            </div>
-            <p className="text-sm text-gray-600 mt-1">{rule.action}</p>
-            <div className="mt-2 text-xs">
-              <span className="font-medium">Expression:</span>
-              <code className="ml-2 bg-gray-200 px-1 py-0.5 rounded">
-                {rule.expression}
-              </code>
             </div>
           </div>
         ))}
