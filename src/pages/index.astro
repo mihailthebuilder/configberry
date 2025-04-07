@@ -1,5 +1,6 @@
 ---
 import "@styles/global.css";
+import faq from "./faq.json";
 ---
 
 <!doctype html>
@@ -109,12 +110,12 @@ import "@styles/global.css";
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
-                Apply Cloudflare WAF Configs Across Multiple Sites
+                Bulk Apply Cloudflare WAF Configs Across Sites - For Free!
               </h1>
               <p class="text-gray-300 text-lg mb-8">
-                Apply Cloudflare WAF rules to all your websites with just a few
-                clicks. Save hours of manual configuration, ensure consistency,
-                and strengthen your security posture.
+                Apply Cloudflare WAF custom rules to all your websites with just
+                a few clicks. Save hours of manual configuration, ensure
+                consistency, and strengthen your security posture.
               </p>
               <div class="flex flex-col sm:flex-row gap-4 mb-8">
                 <a
@@ -293,91 +294,16 @@ import "@styles/global.css";
           </div>
 
           <div class="grid gap-6 md:grid-cols-2 max-w-4xl mx-auto">
-            <!-- FAQ Item 1 -->
-            <div
-              class="bg-white rounded-lg shadow-md p-6 border border-gray-200"
-            >
-              <h3 class="text-xl font-semibold text-gray-900 mb-3">
-                What is the WAF Sync Tool?
-              </h3>
-              <p class="text-gray-700">
-                The WAF Sync Tool allows you to apply Cloudflare WAF
-                configurations across multiple sites simultaneously, eliminating
-                the need for manual configuration on each domain.
-              </p>
-            </div>
-
-            <!-- FAQ Item 2 -->
-            <div
-              class="bg-white rounded-lg shadow-md p-6 border border-gray-200"
-            >
-              <h3 class="text-xl font-semibold text-gray-900 mb-3">
-                Do I need a Cloudflare API key?
-              </h3>
-              <p class="text-gray-700">
-                Yes, you'll need a Cloudflare API key with sufficient
-                permissions to read and modify WAF configurations across your
-                domains.
-              </p>
-            </div>
-
-            <!-- FAQ Item 3 -->
-            <div
-              class="bg-white rounded-lg shadow-md p-6 border border-gray-200"
-            >
-              <h3 class="text-xl font-semibold text-gray-900 mb-3">
-                Which WAF rules can I sync?
-              </h3>
-              <p class="text-gray-700">
-                You can sync all Cloudflare WAF rule types including managed
-                rules, rate limiting rules, and custom rules across your
-                domains.
-              </p>
-            </div>
-
-            <!-- FAQ Item 4 -->
-            <div
-              class="bg-white rounded-lg shadow-md p-6 border border-gray-200"
-            >
-              <h3 class="text-xl font-semibold text-gray-900 mb-3">
-                Is there a backup before changes are applied?
-              </h3>
-              <p class="text-gray-700">
-                Yes, the tool automatically creates a backup of your existing
-                WAF configurations before applying any changes, allowing you to
-                restore if needed.
-              </p>
-            </div>
-
-            <!-- FAQ Item 5 -->
-            <div
-              class="bg-white rounded-lg shadow-md p-6 border border-gray-200"
-            >
-              <h3 class="text-xl font-semibold text-gray-900 mb-3">
-                What's the difference between the WAF Sync and Zone Export
-                tools?
-              </h3>
-              <p class="text-gray-700">
-                The WAF Sync Tool applies rules across multiple sites, while the
-                Zone Export Tool allows you to export a complete WAF
-                configuration from a single zone for documentation or backup
-                purposes.
-              </p>
-            </div>
-
-            <!-- FAQ Item 6 -->
-            <div
-              class="bg-white rounded-lg shadow-md p-6 border border-gray-200"
-            >
-              <h3 class="text-xl font-semibold text-gray-900 mb-3">
-                Are there any rate limiting concerns?
-              </h3>
-              <p class="text-gray-700">
-                The tool respects Cloudflare's API rate limits and includes
-                throttling mechanisms to prevent your account from being
-                temporarily blocked.
-              </p>
-            </div>
+            {
+              faq.map((item) => (
+                <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+                  <h3 class="text-xl font-semibold text-gray-900 mb-3">
+                    {item.question}
+                  </h3>
+                  <p class="text-gray-700">{item.answer}</p>
+                </div>
+              ))
+            }
           </div>
 
           <div class="text-center mt-10">
