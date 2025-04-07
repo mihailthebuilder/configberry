@@ -172,144 +172,110 @@ import "@styles/global.css";
           </div>
         </div>
       </section>
-      <!-- How It Works Section -->
-      <section class="py-16 bg-white">
+      <section class="bg-gray-100 py-16">
         <div class="max-w-7xl mx-auto px-6">
           <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               How It Works
             </h2>
-            <p class="text-gray-600 mt-4 text-lg">
-              Simple steps to sync your WAF configurations across multiple sites
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+              Synchronize your WAF configurations across multiple sites in five
+              simple steps
             </p>
           </div>
 
-          <div class="grid md:grid-cols-3 gap-8 mt-12">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Step 1 -->
-            <div class="flex flex-col items-center text-center">
-              <div class="bg-orange-100 rounded-full p-5 mb-6">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-10 w-10 text-orange-500"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <div class="flex items-center mb-4">
+                <div
+                  class="flex items-center justify-center h-12 w-12 rounded-full bg-orange-100 text-orange-500 font-bold text-xl mr-4"
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
-                  ></path>
-                </svg>
+                  1
+                </div>
+                <h3 class="font-semibold text-xl">Prepare Your Zone List</h3>
               </div>
-              <h3 class="text-xl font-semibold text-gray-900 mb-3">
-                1. Connect Your Account
-              </h3>
-              <p class="text-gray-700">
-                Enter your Cloudflare API credentials to securely connect to
-                your account and view all available zones.
+              <p class="text-gray-600">
+                Create a CSV with zone IDs, names, API emails, and API keys for
+                your target sites, or use our <a
+                  href="/app/zone-waf-export"
+                  class="text-orange-500 hover:text-orange-600"
+                  >Zone Export Tool</a
+                >.
               </p>
             </div>
 
             <!-- Step 2 -->
-            <div class="flex flex-col items-center text-center">
-              <div class="bg-orange-100 rounded-full p-5 mb-6">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-10 w-10 text-orange-500"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <div class="flex items-center mb-4">
+                <div
+                  class="flex items-center justify-center h-12 w-12 rounded-full bg-orange-100 text-orange-500 font-bold text-xl mr-4"
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-                  ></path>
-                </svg>
+                  2
+                </div>
+                <h3 class="font-semibold text-xl">Source Configuration</h3>
               </div>
-              <h3 class="text-xl font-semibold text-gray-900 mb-3">
-                2. Select Source & Targets
-              </h3>
-              <p class="text-gray-700">
-                Choose a source zone with your desired WAF configuration and
-                select the target zones where you want to apply these rules.
+              <p class="text-gray-600">
+                Identify the source zone ID, API email, and API key for the zone
+                containing your preferred WAF configuration.
               </p>
             </div>
 
             <!-- Step 3 -->
-            <div class="flex flex-col items-center text-center">
-              <div class="bg-orange-100 rounded-full p-5 mb-6">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-10 w-10 text-orange-500"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <div class="flex items-center mb-4">
+                <div
+                  class="flex items-center justify-center h-12 w-12 rounded-full bg-orange-100 text-orange-500 font-bold text-xl mr-4"
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 13l4 4L19 7"></path>
-                </svg>
+                  3
+                </div>
+                <h3 class="font-semibold text-xl">Enter Details</h3>
               </div>
-              <h3 class="text-xl font-semibold text-gray-900 mb-3">
-                3. Sync & Deploy
-              </h3>
-              <p class="text-gray-700">
-                Review the changes and click deploy. The tool will automatically
-                sync your WAF rules across all selected sites.
+              <p class="text-gray-600">
+                Navigate to the Copy page and input both your source credentials
+                and target zone information.
               </p>
             </div>
-          </div>
 
-          <div
-            class="mt-16 bg-gray-50 border border-gray-200 rounded-lg p-8 shadow-sm"
-          >
-            <div
-              class="flex flex-col md:flex-row items-center justify-between gap-6"
-            >
-              <div class="md:w-2/3">
-                <h3 class="text-2xl font-semibold text-gray-900 mb-2">
-                  Before & After Comparison
-                </h3>
-                <p class="text-gray-700">
-                  The tool provides a detailed report showing the changes made
-                  to each zone, including added, modified, and deleted rules.
-                  You can review exactly what changed before and after the sync
-                  operation.
-                </p>
+            <!-- Step 4 -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <div class="flex items-center mb-4">
+                <div
+                  class="flex items-center justify-center h-12 w-12 rounded-full bg-orange-100 text-orange-500 font-bold text-xl mr-4"
+                >
+                  4
+                </div>
+                <h3 class="font-semibold text-xl">Review Copy Plan</h3>
               </div>
-              <div class="md:w-1/3 flex-shrink-0">
-                <img
-                  src="/api/placeholder/300/200"
-                  alt="Before and after comparison"
-                  class="rounded-lg shadow-md"
-                />
+              <p class="text-gray-600">
+                Click "Create Copy Plan" to preview which rules will be
+                synchronized across your specified zones.
+              </p>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <div class="flex items-center mb-4">
+                <div
+                  class="flex items-center justify-center h-12 w-12 rounded-full bg-orange-100 text-orange-500 font-bold text-xl mr-4"
+                >
+                  5
+                </div>
+                <h3 class="font-semibold text-xl">Apply Changes</h3>
               </div>
+              <p class="text-gray-600">
+                Confirm and click "Apply" to securely deploy your WAF
+                configurations across all target zones.
+              </p>
             </div>
           </div>
 
           <div class="mt-12 text-center">
             <a
               href="/app/waf-copy"
-              class="inline-flex items-center bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 px-6 rounded-lg transition-colors"
+              class="bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 px-8 rounded-lg transition-colors"
             >
-              Try It Now
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 ml-2"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-                  clip-rule="evenodd"></path>
-              </svg>
+              Go to WAF Sync Tool
             </a>
           </div>
         </div>
