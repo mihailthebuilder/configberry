@@ -2,29 +2,397 @@
 import "@styles/global.css";
 ---
 
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Cloud Configs</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WAF Rules Manager | Bulk Cloudflare WAF Rule Management</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
   </head>
-  <body>
-    <main
-      class="flex flex-col items-center justify-center min-h-screen space-y-4"
-    >
-      <a
-        class="mx-auto max-w-lg p-4 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition"
-        href="/app/upload-accounts"
+  <body class="bg-gray-50 text-gray-900">
+    <header class="bg-white shadow-sm">
+      <div
+        class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 flex justify-between items-center"
       >
-        Upload accounts
-      </a>
-      <a
-        class="mx-auto max-w-lg p-4 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition"
-        href="/app/copy-config"
+        <div class="flex items-center">
+          <div class="text-blue-600 mr-2">
+            <i class="fas fa-shield-alt text-2xl"></i>
+          </div>
+          <h1 class="text-2xl font-bold">WAF Rules Manager</h1>
+        </div>
+        <nav>
+          <ul class="flex space-x-8">
+            <li>
+              <a
+                href="#features"
+                class="font-medium text-gray-700 hover:text-blue-600"
+                >Features</a
+              >
+            </li>
+            <li>
+              <a
+                href="#tools"
+                class="font-medium text-gray-700 hover:text-blue-600">Tools</a
+              >
+            </li>
+            <li>
+              <a
+                href="#faq"
+                class="font-medium text-gray-700 hover:text-blue-600">FAQ</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero Section -->
+      <section
+        class="relative bg-gradient-to-r from-blue-600 to-indigo-700 py-20"
       >
-        Copy config
-      </a>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-8 md:mb-0">
+              <h2 class="text-4xl font-extrabold text-white mb-4">
+                Manage Cloudflare WAF Rules at Scale
+              </h2>
+              <p class="text-xl text-blue-100 mb-6">
+                Copy custom WAF rules across multiple sites with a single click.
+                Save hours of manual configuration.
+              </p>
+              <div class="flex space-x-4">
+                <a
+                  href="/copy-tool"
+                  class="inline-flex items-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-blue-700 bg-white hover:bg-blue-50"
+                >
+                  Get Started
+                  <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+              </div>
+            </div>
+            <div class="md:w-1/2">
+              <div class="bg-white p-6 rounded-lg shadow-xl">
+                <div class="flex justify-between items-center mb-4">
+                  <div class="flex items-center">
+                    <div class="h-3 w-3 bg-red-500 rounded-full mr-2"></div>
+                    <div class="h-3 w-3 bg-yellow-500 rounded-full mr-2"></div>
+                    <div class="h-3 w-3 bg-green-500 rounded-full"></div>
+                  </div>
+                  <div class="text-gray-500 text-sm">WAF Rules Manager</div>
+                </div>
+                <div class="bg-gray-800 p-4 rounded">
+                  <pre
+                    class="text-green-400 text-sm overflow-x-auto">
+$ waf-rules-manager sync --source site1.com --target all
+✓ Connected to Cloudflare API
+✓ Found 27 WAF rules on site1.com
+✓ Syncing to 18 target sites
+✓ Rules successfully copied to all target sites
+                </pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section id="features" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">
+            Why Use WAF Rules Manager?
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div class="flex flex-col items-center text-center">
+              <div class="bg-blue-100 p-3 rounded-full mb-4">
+                <i class="fas fa-sync text-blue-600 text-2xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-2">Bulk WAF Rule Copying</h3>
+              <p class="text-gray-600">
+                Copy your custom Cloudflare WAF rules to multiple sites
+                simultaneously, saving hours of manual configuration.
+              </p>
+            </div>
+            <div class="flex flex-col items-center text-center">
+              <div class="bg-blue-100 p-3 rounded-full mb-4">
+                <i class="fas fa-download text-blue-600 text-2xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-2">
+                Export Configuration Data
+              </h3>
+              <p class="text-gray-600">
+                Download your existing WAF configuration data for backup or
+                analysis purposes.
+              </p>
+            </div>
+            <div class="flex flex-col items-center text-center">
+              <div class="bg-blue-100 p-3 rounded-full mb-4">
+                <i class="fas fa-shield-alt text-blue-600 text-2xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-2">Consistent Security</h3>
+              <p class="text-gray-600">
+                Ensure all your websites have identical WAF protection with
+                synchronized rule sets.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tools Section -->
+      <section id="tools" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">
+            Our Tools
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+              <div class="bg-blue-600 px-6 py-4">
+                <h3 class="text-xl font-semibold text-white">
+                  WAF Rules Copier
+                </h3>
+              </div>
+              <div class="p-6">
+                <p class="text-gray-600 mb-4">
+                  Bulk copy your Custom WAF rules from one site to multiple
+                  destination sites with a single operation.
+                </p>
+                <ul class="mb-6 text-gray-600">
+                  <li class="flex items-center mb-2">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    Copy rules to multiple sites at once
+                  </li>
+                  <li class="flex items-center mb-2">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    Preserve rule settings and configurations
+                  </li>
+                  <li class="flex items-center">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    Validate rule compatibility
+                  </li>
+                </ul>
+                <a
+                  href="/copy-tool"
+                  class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                >
+                  Open Tool
+                  <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+              </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+              <div class="bg-indigo-600 px-6 py-4">
+                <h3 class="text-xl font-semibold text-white">
+                  Configuration Exporter
+                </h3>
+              </div>
+              <div class="p-6">
+                <p class="text-gray-600 mb-4">
+                  Download the necessary configuration data required for the WAF
+                  Rules Copier tool.
+                </p>
+                <ul class="mb-6 text-gray-600">
+                  <li class="flex items-center mb-2">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    Export existing WAF configurations
+                  </li>
+                  <li class="flex items-center mb-2">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    Generate compatible data files
+                  </li>
+                  <li class="flex items-center">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    Prepare data for bulk operations
+                  </li>
+                </ul>
+                <a
+                  href="/export-tool"
+                  class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+                >
+                  Open Tool
+                  <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- How It Works Section -->
+      <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">
+            How It Works
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="flex flex-col items-center text-center">
+              <div
+                class="bg-blue-100 rounded-full w-12 h-12 flex items-center justify-center mb-4"
+              >
+                <span class="text-blue-600 font-bold">1</span>
+              </div>
+              <h3 class="text-lg font-semibold mb-2">Export Configuration</h3>
+              <p class="text-gray-600">
+                Download your site configuration data using our exporter tool.
+              </p>
+            </div>
+            <div class="flex flex-col items-center text-center">
+              <div
+                class="bg-blue-100 rounded-full w-12 h-12 flex items-center justify-center mb-4"
+              >
+                <span class="text-blue-600 font-bold">2</span>
+              </div>
+              <h3 class="text-lg font-semibold mb-2">Select Source Site</h3>
+              <p class="text-gray-600">
+                Choose which site's WAF rules you want to copy from.
+              </p>
+            </div>
+            <div class="flex flex-col items-center text-center">
+              <div
+                class="bg-blue-100 rounded-full w-12 h-12 flex items-center justify-center mb-4"
+              >
+                <span class="text-blue-600 font-bold">3</span>
+              </div>
+              <h3 class="text-lg font-semibold mb-2">Select Target Sites</h3>
+              <p class="text-gray-600">
+                Choose which sites should receive the copied WAF rules.
+              </p>
+            </div>
+            <div class="flex flex-col items-center text-center">
+              <div
+                class="bg-blue-100 rounded-full w-12 h-12 flex items-center justify-center mb-4"
+              >
+                <span class="text-blue-600 font-bold">4</span>
+              </div>
+              <h3 class="text-lg font-semibold mb-2">Sync Rules</h3>
+              <p class="text-gray-600">
+                Start the synchronization process and track progress in
+                real-time.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section id="faq" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">
+            Frequently Asked Questions
+          </h2>
+          <div class="space-y-6 max-w-3xl mx-auto">
+            <div class="bg-white shadow rounded-lg">
+              <button
+                class="flex justify-between items-center w-full px-6 py-4 text-left"
+              >
+                <span class="text-lg font-medium"
+                  >Is this tool free to use?</span
+                >
+                <i class="fas fa-chevron-down text-gray-500"></i>
+              </button>
+              <div class="px-6 pb-4">
+                <p class="text-gray-600">
+                  Yes, WAF Rules Manager is currently free to use. We may
+                  introduce premium features in the future, but the core
+                  functionality will remain free.
+                </p>
+              </div>
+            </div>
+            <div class="bg-white shadow rounded-lg">
+              <button
+                class="flex justify-between items-center w-full px-6 py-4 text-left"
+              >
+                <span class="text-lg font-medium"
+                  >Do I need Cloudflare API access?</span
+                >
+                <i class="fas fa-chevron-down text-gray-500"></i>
+              </button>
+              <div class="px-6 pb-4">
+                <p class="text-gray-600">
+                  Yes, you'll need to generate a Cloudflare API token with
+                  appropriate permissions to access and modify WAF rules across
+                  your sites.
+                </p>
+              </div>
+            </div>
+            <div class="bg-white shadow rounded-lg">
+              <button
+                class="flex justify-between items-center w-full px-6 py-4 text-left"
+              >
+                <span class="text-lg font-medium"
+                  >Is my Cloudflare data secure?</span
+                >
+                <i class="fas fa-chevron-down text-gray-500"></i>
+              </button>
+              <div class="px-6 pb-4">
+                <p class="text-gray-600">
+                  All operations happen in your browser. Your API keys and site
+                  data are never stored on our servers, ensuring maximum
+                  security.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="bg-blue-600 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 class="text-3xl font-bold text-white mb-4">
+            Ready to streamline your WAF management?
+          </h2>
+          <p class="text-xl text-blue-100 mb-6">
+            Start copying your WAF rules across multiple sites in minutes.
+          </p>
+          <div class="flex justify-center space-x-4">
+            <a
+              href="/copy-tool"
+              class="inline-flex items-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-blue-700 bg-white hover:bg-blue-50"
+            >
+              Get Started Now
+              <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </section>
     </main>
+
+    <footer class="bg-gray-800 text-white py-8">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="mb-4 md:mb-0 flex items-center">
+            <div class="text-blue-400 mr-2">
+              <i class="fas fa-shield-alt text-xl"></i>
+            </div>
+            <span class="font-bold text-xl">WAF Rules Manager</span>
+          </div>
+          <div class="flex space-x-6">
+            <a href="#" class="text-gray-300 hover:text-white">
+              <i class="fab fa-github text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-white">
+              <i class="fab fa-twitter text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-white">
+              <i class="fab fa-linkedin text-xl"></i>
+            </a>
+          </div>
+        </div>
+        <div
+          class="mt-8 pt-8 border-t border-gray-700 text-sm text-gray-400 text-center"
+        >
+          <p>© 2025 WAF Rules Manager. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
