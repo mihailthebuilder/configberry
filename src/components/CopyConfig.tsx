@@ -10,7 +10,7 @@ interface CopyPlanConfig {
   zoneId: string;
 }
 
-function CopyConfigC() {
+function CopyConfig() {
   const [sourceZone, setSourceZone] = useState<CopyPlanConfig>({
     apiKey: "",
     apiEmail: "",
@@ -220,4 +220,4 @@ const parseFileContent = (content: string): ZoneCsvRow[] => {
   });
 };
 
-export default CopyConfigC;
+export default CopyConfig;
