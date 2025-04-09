@@ -74,22 +74,22 @@ function CopyConfig() {
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
-        <div className="px-4 py-5 sm:p-6">
-          <h1 className="text-lg font-medium text-gray-900">
+      <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-2xl overflow-hidden">
+        <div className="px-6 py-8">
+          <h1 className="text-3xl font-bold text-gray-900">
             Zone Copy Plan Configuration
           </h1>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-4 text-lg text-gray-600">
             Enter your Cloudflare credentials and zone information to create a
             copy plan.
           </p>
 
-          <div className="mt-6 space-y-4">
+          <div className="mt-8 space-y-6">
             {/* API Email Input */}
             <div>
               <label
                 htmlFor="apiEmail"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-lg font-medium text-gray-700"
               >
                 API Email
               </label>
@@ -97,7 +97,7 @@ function CopyConfig() {
                 type="email"
                 name="apiEmail"
                 id="apiEmail"
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                className="mt-2 block w-full border border-gray-200 rounded-lg shadow-md py-3 px-4 focus:outline-none focus:ring-pink-800 focus:border-pink-800 text-lg"
                 placeholder="your.email@example.com"
                 value={sourceZone.apiEmail}
                 onChange={handleInputChange}
@@ -109,7 +109,7 @@ function CopyConfig() {
             <div>
               <label
                 htmlFor="apiKey"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-lg font-medium text-gray-700"
               >
                 API Key
               </label>
@@ -117,7 +117,7 @@ function CopyConfig() {
                 type="text"
                 name="apiKey"
                 id="apiKey"
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                className="mt-2 block w-full border border-gray-200 rounded-lg shadow-md py-3 px-4 focus:outline-none focus:ring-pink-800 focus:border-pink-800 text-lg"
                 placeholder="API Key"
                 value={sourceZone.apiKey}
                 onChange={handleInputChange}
@@ -129,7 +129,7 @@ function CopyConfig() {
             <div>
               <label
                 htmlFor="zoneId"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-lg font-medium text-gray-700"
               >
                 Zone ID
               </label>
@@ -137,7 +137,7 @@ function CopyConfig() {
                 type="text"
                 name="zoneId"
                 id="zoneId"
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                className="mt-2 block w-full border border-gray-200 rounded-lg shadow-md py-3 px-4 focus:outline-none focus:ring-pink-800 focus:border-pink-800 text-lg"
                 placeholder="Zone ID"
                 value={sourceZone.zoneId}
                 onChange={handleInputChange}
@@ -146,29 +146,35 @@ function CopyConfig() {
             </div>
 
             {/* File Uploader */}
-            <div className="mt-6">
-              <label className="block text-sm font-medium text-gray-700">
+            <div className="mt-8">
+              <label className="block text-lg font-medium text-gray-700">
                 Configuration File
               </label>
-              <FileUploader
-                onFileProcessed={handleFileProcessed}
-                onError={handleError}
-                acceptedFileTypes=".csv,.txt"
-                maxFileSizeMB={10}
-                fileDescription="CSV or TXT"
-              />
+              <div className="mt-2 p-4 border border-gray-200 rounded-lg bg-gray-100">
+                <FileUploader
+                  onFileProcessed={handleFileProcessed}
+                  onError={handleError}
+                  acceptedFileTypes=".csv,.txt"
+                  maxFileSizeMB={10}
+                  fileDescription="CSV or TXT"
+                />
+              </div>
             </div>
           </div>
 
-          {error && <div className="mt-4 text-sm text-red-600">{error}</div>}
+          {error && (
+            <div className="mt-6 text-lg text-pink-800 bg-pink-100 p-4 rounded-lg">
+              {error}
+            </div>
+          )}
 
-          <div className="mt-8 flex justify-end">
+          <div className="mt-12 flex justify-end">
             <button
               type="button"
-              className={`inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 hover:cursor-pointer ${
+              className={`inline-flex items-center px-6 py-3 border border-transparent text-lg font-medium rounded-lg shadow-md text-white ${
                 isLoading
                   ? "bg-gray-600"
-                  : "bg-green-600 hover:bg-green-700 focus:ring-green-500"
+                  : "bg-pink-800 hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-800"
               }`}
               onClick={createCopyPlan}
               disabled={isLoading}
@@ -178,10 +184,12 @@ function CopyConfig() {
           </div>
 
           {cloudflarePhase && (
-            <CopyPlan
-              cloudflarePhase={cloudflarePhase}
-              zonesToApply={zonesToApply}
-            />
+            <div className="mt-12 border-t border-gray-200 pt-8">
+              <CopyPlan
+                cloudflarePhase={cloudflarePhase}
+                zonesToApply={zonesToApply}
+              />
+            </div>
           )}
         </div>
       </div>
