@@ -49,26 +49,26 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
 
   return (
     <div className="mt-8">
-      <h2 className="text-lg font-medium text-gray-900">Rules to apply</h2>
+      <h2 className="text-xl font-bold text-gray-900">Rules to apply</h2>
       <div className="mt-4 bg-gray-100 p-4 rounded-md overflow-x-auto">
         {displayRules(cloudflarePhase).map((rule) => (
           <div
             key={rule.id}
-            className="mb-4 border-b border-gray-200 pb-4 last:border-b-0 last:pb-0"
+            className="mb-4 border-b border-gray-700 pb-4 last:border-b-0 last:pb-0"
           >
             <div className="flex justify-between items-start mb-2">
               <div className="flex-1">
-                <span className="text-xs text-gray-500 uppercase font-semibold">
+                <span className="text-xs text-gray-600 uppercase font-medium">
                   Rule name:
                 </span>
-                <p className="text-sm text-gray-800">{rule.name}</p>
+                <p className="text-sm text-gray-700">{rule.name}</p>
               </div>
 
               <span
                 className={`ml-2 px-2 py-1 text-xs rounded-full whitespace-nowrap ${
                   rule.enabled
-                    ? "bg-green-100 text-green-800"
-                    : "bg-red-100 text-red-800"
+                    ? "bg-pink-100 text-pink-800"
+                    : "bg-gray-100 text-gray-600"
                 }`}
               >
                 {rule.enabled ? "Enabled" : "Disabled"}
@@ -76,14 +76,14 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
             </div>
 
             <div className="mb-2">
-              <span className="text-xs text-gray-500 uppercase font-semibold">
+              <span className="text-xs text-gray-600 uppercase font-medium">
                 Rule action:
               </span>
-              <p className="text-sm text-gray-800">{rule.action}</p>
+              <p className="text-sm text-gray-700">{rule.action}</p>
             </div>
 
             <div>
-              <span className="text-xs text-gray-500 uppercase font-semibold">
+              <span className="text-xs text-gray-600 uppercase font-medium">
                 Expression:
               </span>
               <div className="w-full font-mono text-sm bg-gray-200 px-3 py-2 mt-1 rounded break-all">
@@ -94,7 +94,7 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
         ))}
       </div>
 
-      <div className="mt-6 bg-gray-50">
+      <div className="mt-6 bg-gray-100 p-4 rounded-md">
         <h2 className="text-lg font-medium text-gray-900 mb-3">
           Zones to apply the rules to:
         </h2>
@@ -103,7 +103,7 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
           {zonesToApply.map((zone) => (
             <span
               key={zone.zoneId}
-              className="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full"
+              className="px-3 py-1 bg-pink-100 text-pink-800 text-sm rounded-full"
             >
               {zone.zoneName}
             </span>
@@ -114,10 +114,10 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
       <div className="mt-8 flex justify-end">
         <button
           type="button"
-          className={`inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 hover:cursor-pointer ${
+          className={`inline-flex items-center px-4 py-3 border border-transparent text-sm font-medium rounded-lg shadow-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 ${
             isLoading
               ? "bg-gray-600"
-              : "bg-orange-500 hover:bg-orange-700 focus:ring-orange-500"
+              : "bg-pink-800 hover:bg-pink-600 focus:ring-pink-800"
           }`}
           onClick={applyRulesToZones}
           disabled={isLoading}
@@ -127,11 +127,11 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
       </div>
 
       {results.length > 0 && (
-        <div className="mt-6 border rounded-md">
-          <h2 className="text-lg font-medium text-gray-900 p-4 border-b">
+        <div className="mt-6 border border-gray-200 rounded-lg shadow-md">
+          <h2 className="text-lg font-bold text-gray-900 p-4 border-b border-gray-200">
             Results
           </h2>
-          <div className="divide-y">
+          <div className="divide-y divide-gray-200">
             {results.map((result, index) => (
               <div
                 key={index}
@@ -140,7 +140,7 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
                 <div className="flex items-center">
                   {result.error ? (
                     <svg
-                      className="w-5 h-5 text-red-500 mr-2"
+                      className="w-5 h-5 text-gray-600 mr-2"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                       xmlns="http://www.w3.org/2000/svg"
@@ -153,7 +153,7 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
                     </svg>
                   ) : (
                     <svg
-                      className="w-5 h-5 text-green-500 mr-2"
+                      className="w-5 h-5 text-pink-800 mr-2"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                       xmlns="http://www.w3.org/2000/svg"
@@ -165,16 +165,18 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
                       />
                     </svg>
                   )}
-                  <span className="font-medium">{result.zoneName}</span>
+                  <span className="font-medium text-gray-700">
+                    {result.zoneName}
+                  </span>
                 </div>
                 {result.error ? (
                   <div className="flex-1 ml-4">
-                    <span className="text-sm text-red-600 bg-red-50 px-2 py-1 rounded">
+                    <span className="text-sm text-gray-600 bg-gray-100 px-2 py-1 rounded">
                       {result.error}
                     </span>
                   </div>
                 ) : (
-                  <span className="text-sm text-green-600 bg-green-50 px-2 py-1 rounded">
+                  <span className="text-sm text-pink-800 bg-pink-100 px-2 py-1 rounded">
                     Successfully applied
                   </span>
                 )}
