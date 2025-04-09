@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Cloudflare from "cloudflare";
 import FileUploader from "./FileUploader"; // Import the new component
+import { cloudflareClient } from "@lib/cf";
 
 interface CloudflareAccount {
   email: string;
@@ -35,11 +35,7 @@ function ZonesDownload() {
       const zonesToDownload: ZoneCsvRow[] = [];
 
       for (const account of cloudflareAccounts) {
-        const cf = new Cloudflare({
-          baseURL: "https://cortex.app.taralys.com/client/v4",
-          apiEmail: account.email,
-          apiKey: account.apiKey,
-        });
+        const cf = cloudflareClient(account.email, account.apiKey);
 
         const zones = (await cf.zones.list()).result.map((zone) => ({
           zoneId: zone.id,

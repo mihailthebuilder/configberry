@@ -1,6 +1,6 @@
 import type { PhaseGetResponse } from "cloudflare/resources/rulesets/phases/phases";
 import { useState } from "react";
-import Cloudflare from "cloudflare";
+import { cloudflareClient } from "@lib/cf";
 
 interface CopyPlanProps {
   cloudflarePhase: PhaseGetResponse;
@@ -20,11 +20,7 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
     setIsLoading(true);
     const results: ZoneCopyResult[] = [];
     for (const zone of zonesToApply) {
-      const client = new Cloudflare({
-        baseURL: "https://cortex.app.taralys.com/client/v4",
-        apiEmail: zone.apiEmail,
-        apiKey: zone.apiKey,
-      });
+      const client = cloudflareClient(zone.apiEmail, zone.apiKey);
 
       try {
         await client.rulesets.phases.update("http_request_firewall_custom", {

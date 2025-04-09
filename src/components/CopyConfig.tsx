@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import FileUploader from "./FileUploader";
-import Cloudflare from "cloudflare";
 import type { PhaseGetResponse } from "cloudflare/resources/rulesets/phases/phases";
 import CopyPlan from "./CopyPlan";
+import { cloudflareClient } from "@lib/cf";
 
 interface CopyPlanConfig {
   apiKey: string;
@@ -58,11 +58,7 @@ function CopyConfig() {
         );
       }
 
-      const client = new Cloudflare({
-        baseURL: "https://cortex.app.taralys.com/client/v4",
-        apiEmail: sourceZone.apiEmail,
-        apiKey: sourceZone.apiKey,
-      });
+      const client = cloudflareClient(sourceZone.apiEmail, sourceZone.apiKey);
 
       setCloudflarePhase(
         await client.rulesets.phases.get("http_request_firewall_custom", {
