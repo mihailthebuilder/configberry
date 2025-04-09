@@ -79,7 +79,7 @@ function CopyConfig() {
           <h1 className="text-3xl font-bold text-gray-900">
             Zone Copy Plan Configuration
           </h1>
-          <p className="mt-4 text-lg text-gray-600">
+          <p className="mt-4 text-gray-600">
             Enter your Cloudflare credentials and zone information to create a
             copy plan.
           </p>
@@ -89,7 +89,7 @@ function CopyConfig() {
             <div>
               <label
                 htmlFor="apiEmail"
-                className="block text-lg font-medium text-gray-700"
+                className="block  font-medium text-gray-700"
               >
                 API Email
               </label>
@@ -97,7 +97,7 @@ function CopyConfig() {
                 type="email"
                 name="apiEmail"
                 id="apiEmail"
-                className="mt-2 block w-full border border-gray-200 rounded-lg shadow-md py-3 px-4 focus:outline-none focus:ring-pink-800 focus:border-pink-800 text-lg"
+                className="mt-2 block w-full border border-gray-200 rounded-lg shadow-md py-3 px-4 focus:outline-none focus:ring-pink-800 focus:border-pink-800 "
                 placeholder="your.email@example.com"
                 value={sourceZone.apiEmail}
                 onChange={handleInputChange}
@@ -109,7 +109,7 @@ function CopyConfig() {
             <div>
               <label
                 htmlFor="apiKey"
-                className="block text-lg font-medium text-gray-700"
+                className="block  font-medium text-gray-700"
               >
                 API Key
               </label>
@@ -117,7 +117,7 @@ function CopyConfig() {
                 type="text"
                 name="apiKey"
                 id="apiKey"
-                className="mt-2 block w-full border border-gray-200 rounded-lg shadow-md py-3 px-4 focus:outline-none focus:ring-pink-800 focus:border-pink-800 text-lg"
+                className="mt-2 block w-full border border-gray-200 rounded-lg shadow-md py-3 px-4 focus:outline-none focus:ring-pink-800 focus:border-pink-800 "
                 placeholder="API Key"
                 value={sourceZone.apiKey}
                 onChange={handleInputChange}
@@ -129,7 +129,7 @@ function CopyConfig() {
             <div>
               <label
                 htmlFor="zoneId"
-                className="block text-lg font-medium text-gray-700"
+                className="block  font-medium text-gray-700"
               >
                 Zone ID
               </label>
@@ -137,7 +137,7 @@ function CopyConfig() {
                 type="text"
                 name="zoneId"
                 id="zoneId"
-                className="mt-2 block w-full border border-gray-200 rounded-lg shadow-md py-3 px-4 focus:outline-none focus:ring-pink-800 focus:border-pink-800 text-lg"
+                className="mt-2 block w-full border border-gray-200 rounded-lg shadow-md py-3 px-4 focus:outline-none focus:ring-pink-800 focus:border-pink-800 "
                 placeholder="Zone ID"
                 value={sourceZone.zoneId}
                 onChange={handleInputChange}
@@ -147,7 +147,7 @@ function CopyConfig() {
 
             {/* File Uploader */}
             <div className="mt-8">
-              <label className="block text-lg font-medium text-gray-700">
+              <label className="block  font-medium text-gray-700">
                 Configuration File
               </label>
               <div className="mt-2 p-4 border border-gray-200 rounded-lg bg-gray-100">
@@ -163,7 +163,7 @@ function CopyConfig() {
           </div>
 
           {error && (
-            <div className="mt-6 text-lg text-pink-800 bg-pink-100 p-4 rounded-lg">
+            <div className="mt-6  text-pink-800 bg-pink-100 p-4 rounded-lg">
               {error}
             </div>
           )}
@@ -171,7 +171,7 @@ function CopyConfig() {
           <div className="mt-12 flex justify-end">
             <button
               type="button"
-              className={`inline-flex items-center px-6 py-3 border border-transparent text-lg font-medium rounded-lg shadow-md text-white ${
+              className={`cursor-pointer inline-flex items-center px-4 py-3 border border-transparent  font-medium rounded-lg shadow-md text-white ${
                 isLoading
                   ? "bg-gray-600"
                   : "bg-pink-800 hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-800"
@@ -184,7 +184,7 @@ function CopyConfig() {
           </div>
 
           {cloudflarePhase && (
-            <div className="mt-12 border-t border-gray-200 pt-8">
+            <div className="mt-12 border-t border-gray-400 pt-8">
               <CopyPlan
                 cloudflarePhase={cloudflarePhase}
                 zonesToApply={zonesToApply}
