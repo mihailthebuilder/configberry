@@ -127,7 +127,7 @@ function FileUploader({
       <div
         ref={dropAreaRef}
         className={`flex items-center justify-center px-6 pt-5 pb-6 border-2 ${
-          isDragging ? "border-indigo-300 bg-indigo-50" : "border-gray-300"
+          isDragging ? "border-pink-800 bg-pink-100" : "border-gray-700"
         } border-dashed rounded-md`}
         onDragEnter={handleDragEnter}
         onDragOver={handleDragOver}
@@ -136,7 +136,7 @@ function FileUploader({
       >
         <div className="space-y-1 text-center">
           <svg
-            className="mx-auto h-12 w-12 text-gray-400"
+            className="mx-auto h-12 w-12 text-gray-600"
             stroke="currentColor"
             fill="none"
             viewBox="0 0 48 48"
@@ -149,10 +149,10 @@ function FileUploader({
               strokeLinejoin="round"
             />
           </svg>
-          <div className="flex text-sm text-gray-600">
+          <div className="flex text-sm text-gray-700">
             <label
               htmlFor="file-upload"
-              className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+              className="relative cursor-pointer bg-white rounded-md font-medium text-pink-800 hover:text-pink-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-800"
             >
               <span>Upload a file</span>
               <input
@@ -166,14 +166,14 @@ function FileUploader({
             </label>
             <p className="pl-1">or drag and drop</p>
           </div>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-gray-600">
             {fileDescription} up to {maxFileSizeMB}MB
           </p>
         </div>
       </div>
 
       {file && (
-        <p className="mt-2 text-sm text-gray-500">
+        <p className="mt-2 text-sm text-gray-600">
           Selected file:{" "}
           <span className="font-medium text-gray-900">{file.name}</span> (
           {(file.size / 1024).toFixed(2)} KB)
@@ -181,7 +181,7 @@ function FileUploader({
       )}
 
       {isLoading && (
-        <div className="mt-2 text-sm text-gray-600">Processing file...</div>
+        <div className="mt-2 text-sm text-gray-700">Processing file...</div>
       )}
     </div>
   );

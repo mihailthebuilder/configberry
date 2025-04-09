@@ -140,7 +140,7 @@ function ZonesDownload() {
               <div className="mt-8 flex justify-end">
                 <button
                   type="button"
-                  className={`inline-flex items-center px-6 py-3 border border-transparent text-lg font-medium rounded-lg shadow-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+                  className={`cursor-pointer inline-flex items-center px-6 py-3 border border-transparent text-lg font-medium rounded-lg shadow-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 ${
                     isLoading
                       ? "bg-gray-600"
                       : "bg-pink-800 hover:bg-pink-600 focus:ring-pink-800"
