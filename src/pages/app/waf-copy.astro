@@ -1,6 +1,8 @@
 ---
-import CopyConfigC from "@components/CopyConfig";
+import CopyConfig from "@components/CopyConfig";
 import "@styles/global.css";
+import Footer from "@components/Footer.astro";
+import Header from "@components/Header.astro";
 ---
 
 <html lang="en">
@@ -11,8 +13,10 @@ import "@styles/global.css";
     <title>Cloud Configs</title>
   </head>
   <body>
+    <Header />
     <main>
-      <CopyConfigC client:only="react" />
+      <CopyConfig client:only="react" />
     </main>
+    <Footer />
   </body>
 </html>
