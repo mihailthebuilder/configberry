@@ -1,16 +1,16 @@
 ---
 import ZonesDownload from "@components/ZonesDownload";
-import "@styles/global.css";
 import Footer from "@components/Footer.astro";
 import Header from "@components/Header.astro";
+import BaseHead from "@components/BaseHead.astro";
 ---
 
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Cloud Configs</title>
+    <BaseHead
+      title="ConfigBerry | Export Cloudflare Zones Tool"
+      description="Export all zones for a list of Cloudflare accounts. All you need is a CSV file with account emails and API keys."
+    />
   </head>
   <body>
     <Header />
