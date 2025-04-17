@@ -1,16 +1,15 @@
 ---
-import "@styles/global.css";
 import faq from "./faq.json";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
+import BaseHead from "@components/BaseHead.astro";
+
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 ---
 
-<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WAF Rules Manager | Bulk Cloudflare WAF Rule Management</title>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
   <body class="bg-gray-50 text-gray-900">
     <Header />
@@ -21,12 +20,12 @@ import Footer from "@components/Footer.astro";
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
-                Bulk Apply Cloudflare WAF Configs Across Sites - For Free!
+                Manage Cloudflare rules across a large number of domains
               </h1>
               <p class="text-gray-300 text-lg mb-8">
-                Apply Cloudflare WAF custom rules to all your websites with just
-                a few clicks. Save hours of manual configuration, ensure
-                consistency, and strengthen your security posture.
+                Apply Cloudflare rules to all your websites with just a few
+                clicks. Save hours of manual configuration, ensure consistency,
+                and strengthen your security posture.
               </p>
               <div class="flex flex-col sm:flex-row gap-4 mb-8">
                 <a
