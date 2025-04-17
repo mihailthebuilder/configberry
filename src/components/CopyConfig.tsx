@@ -150,15 +150,13 @@ function CopyConfig() {
               <label className="block  font-medium text-gray-700">
                 Configuration File
               </label>
-              <div className="mt-2 p-4 border border-gray-200 rounded-lg bg-gray-100">
-                <FileUploader
-                  onFileProcessed={handleFileProcessed}
-                  onError={handleError}
-                  acceptedFileTypes=".csv,.txt"
-                  maxFileSizeMB={10}
-                  fileDescription="CSV or TXT"
-                />
-              </div>
+              <FileUploader
+                onFileProcessed={handleFileProcessed}
+                onError={handleError}
+                acceptedFileTypes=".csv,.txt"
+                maxFileSizeMB={10}
+                fileDescription="CSV or TXT"
+              />
             </div>
           </div>
 

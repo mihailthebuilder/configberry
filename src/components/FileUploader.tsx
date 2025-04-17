@@ -152,7 +152,7 @@ function FileUploader({
           <div className="flex text-sm text-gray-700">
             <label
               htmlFor="file-upload"
-              className="relative cursor-pointer bg-white rounded-md font-medium text-pink-800 hover:text-pink-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-800"
+              className="relative cursor-pointer rounded-md font-medium text-pink-800 hover:text-pink-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-800"
             >
               <span>Upload a file</span>
               <input
