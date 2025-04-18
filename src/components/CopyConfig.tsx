@@ -166,14 +166,15 @@ function CopyConfig() {
                 ID, Zone Name, API Email, API Key.
               </p>
               <p className="text-gray-600">
+                Manually fill in using{" "}
                 <a
-                  href="/"
+                  href="/wafSyncSample.csv"
                   className="text-pink-800 hover:text-pink-600"
-                  target="_blank"
+                  download
                 >
-                  Click here
-                </a>{" "}
-                to download a sample CSV file. Or use the{" "}
+                  this sample CSV file
+                </a>
+                . Or use the{" "}
                 <a
                   href="/export-zones"
                   className="text-pink-800 hover:text-pink-600"

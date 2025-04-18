@@ -47,7 +47,7 @@ function ZonesDownload() {
         zonesToDownload.push(...zones);
       }
 
-      const headers = "id,name,apiEmail,apiKey";
+      const headers = "zoneId,zoneName,apiEmail,apiKey";
 
       // Convert data to CSV format with headers
       const csvContent =
