@@ -3,7 +3,7 @@
 // all pages through the use of the <BaseHead /> component.
 import "@styles/global.css";
 
-import { SITE_TITLE, SITE_URL, SITE_SOCIAL_IMAGE } from "../consts";
+import { SITE_TITLE, SITE_URL } from "../consts";
 
 interface Props {
   title: string;
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const canonicalURL = new URL(Astro.url.pathname, SITE_URL);
-const socialImage = new URL(SITE_SOCIAL_IMAGE, Astro.url);
+const socialImage = new URL("/meta.webp", Astro.url);
 
 const { title, description } = Astro.props;
 ---
