@@ -143,7 +143,7 @@ function CopyConfig() {
                 API Key
               </label>
               <input
-                type="text"
+                type="password"
                 name="apiKey"
                 id="apiKey"
                 className="mt-2 block w-full border border-gray-200 rounded-lg shadow-md py-3 px-4 focus:outline-none focus:ring-pink-800 focus:border-pink-800 "
