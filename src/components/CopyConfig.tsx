@@ -90,6 +90,30 @@ function CopyConfig() {
           </p>
 
           <div className="mt-8 space-y-6">
+            <h2 className="text-xl font-bold">
+              Enter the source zone credentials
+            </h2>
+
+            {/* Zone ID Input */}
+            <div>
+              <label
+                htmlFor="zoneId"
+                className="block  font-medium text-gray-700"
+              >
+                Zone ID
+              </label>
+              <input
+                type="text"
+                name="zoneId"
+                id="zoneId"
+                className="mt-2 block w-full border border-gray-200 rounded-lg shadow-md py-3 px-4 focus:outline-none focus:ring-pink-800 focus:border-pink-800 "
+                placeholder="Zone ID"
+                value={sourceZone.zoneId}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+
             {/* API Email Input */}
             <div>
               <label
@@ -125,26 +149,6 @@ function CopyConfig() {
                 className="mt-2 block w-full border border-gray-200 rounded-lg shadow-md py-3 px-4 focus:outline-none focus:ring-pink-800 focus:border-pink-800 "
                 placeholder="API Key"
                 value={sourceZone.apiKey}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-
-            {/* Zone ID Input */}
-            <div>
-              <label
-                htmlFor="zoneId"
-                className="block  font-medium text-gray-700"
-              >
-                Zone ID
-              </label>
-              <input
-                type="text"
-                name="zoneId"
-                id="zoneId"
-                className="mt-2 block w-full border border-gray-200 rounded-lg shadow-md py-3 px-4 focus:outline-none focus:ring-pink-800 focus:border-pink-800 "
-                placeholder="Zone ID"
-                value={sourceZone.zoneId}
                 onChange={handleInputChange}
                 required
               />
