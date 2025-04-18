@@ -1,8 +1,30 @@
 ---
-import faq from "./faq.json";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import BaseHead from "@components/BaseHead.astro";
+
+const faq = [
+  {
+    question: "I want feature X, can you add it?",
+    answer:
+      "Send me a message on LinkedIn or via this ugly contact form. This is an early version, and I'm trying to figure out what to prioritise building next.",
+  },
+  {
+    question: "What Cloudflare settings can I manage with this platform?",
+    answer:
+      "Only Cloudflare WAF security rules at the moment. See 1st question for how to request more features.",
+  },
+  {
+    question: "Can I use API tokens?",
+    answer:
+      "Not yet. I'm assuming that most people will be using the API key since it's convenient.",
+  },
+  {
+    question: "How secure is this tool?",
+    answer:
+      "The tool doesn't store the emails or API keys you enter, so I'd like to think it's pretty secure.",
+  },
+];
 
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 ---
@@ -20,10 +42,10 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
-                Manage Cloudflare rules across a large number of domains
+                Manage Cloudflare configs for multiple domains, at scale
               </h1>
               <p class="text-gray-300 text-lg mb-8">
-                The easiest way to manage Cloudflare rules across all your
+                The easiest way to manage Cloudflare settings across all your
                 zones. Save hours of manual configuration, ensure consistency,
                 and strengthen your security posture.
               </p>
@@ -90,8 +112,8 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
               How It Works
             </h2>
             <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-              Synchronize your WAF configurations across multiple sites in five
-              simple steps
+              Synchronize your Cloudflare WAF security rules across multiple
+              domains in five simple steps
             </p>
           </div>
 
@@ -109,7 +131,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
               <p class="text-gray-600">
                 Create a CSV with zone IDs, names, API emails, and API keys for
                 your target sites, or use our <a
-                  href="/app/zone-waf-export"
+                  href="/export-zones"
                   class="text-pink-800 hover:text-pink-600"
                   >Free Zone Export Tool</a
                 >.
