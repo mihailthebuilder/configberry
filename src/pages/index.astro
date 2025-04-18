@@ -7,7 +7,7 @@ const faq = [
   {
     question: "I want feature X, can you add it?",
     answer:
-      "Send me a message on LinkedIn or via this ugly contact form. This is an early version, and I'm trying to figure out what to prioritise building next.",
+      'Send me a message on <a href="https://www.linkedin.com/in/mihailmarian" class="text-pink-800 hover:text-pink-600">LinkedIn</a> or via this <a href="https://forms.gle/VQPZ2HojZGaC2tPTA" class="text-pink-800 hover:text-pink-600 inline-block">contact form</a>. This is an early version, and I\'m trying to figure out what to prioritise building next.',
   },
   {
     question: "What Cloudflare settings can I manage with this platform?",
@@ -229,7 +229,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
                   <h3 class="text-xl font-semibold text-gray-900 mb-3">
                     {item.question}
                   </h3>
-                  <p class="text-gray-700">{item.answer}</p>
+                  <p class="text-gray-700" set:html={item.answer} />
                 </div>
               ))
             }
