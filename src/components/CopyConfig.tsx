@@ -90,9 +90,13 @@ function CopyConfig() {
           </p>
 
           <div className="mt-8 space-y-6">
-            <h2 className="text-xl font-bold">
-              Enter the source zone credentials
-            </h2>
+            <div>
+              <h2 className="text-xl font-bold mb-1">Source zone</h2>
+              <p className="text-gray-600">
+                Enter the Cloudflare API credentials for the source zone. This
+                zone will be used to copy the WAF rules from.
+              </p>
+            </div>
 
             {/* Zone ID Input */}
             <div>
@@ -154,19 +158,40 @@ function CopyConfig() {
               />
             </div>
 
-            {/* File Uploader */}
-            <div className="mt-8">
-              <label className="block  font-medium text-gray-700">
-                Configuration File
-              </label>
-              <FileUploader
-                onFileProcessed={handleFileProcessed}
-                onError={handleError}
-                acceptedFileTypes=".csv,.txt"
-                maxFileSizeMB={10}
-                fileDescription="CSV or TXT"
-              />
+            <div className="mt-12">
+              <h2 className="text-xl font-bold mb-1">Target zones</h2>
+              <p className="text-gray-600">
+                Upload a CSV file containing the target zones to apply the WAF
+                rules to. The file should contain the following columns: Zone
+                ID, Zone Name, API Email, API Key.
+              </p>
+              <p className="text-gray-600">
+                <a
+                  href="/"
+                  className="text-pink-800 hover:text-pink-600"
+                  target="_blank"
+                >
+                  Click here
+                </a>{" "}
+                to download a sample CSV file. Or use the{" "}
+                <a
+                  href="/export-zones"
+                  className="text-pink-800 hover:text-pink-600"
+                  target="_blank"
+                >
+                  Zone Export Tool
+                </a>
+                .
+              </p>
             </div>
+
+            <FileUploader
+              onFileProcessed={handleFileProcessed}
+              onError={handleError}
+              acceptedFileTypes=".csv,.txt"
+              maxFileSizeMB={10}
+              fileDescription="CSV or TXT"
+            />
           </div>
 
           {error && (
@@ -186,7 +211,7 @@ function CopyConfig() {
               onClick={createCopyPlan}
               disabled={isLoading}
             >
-              {isLoading ? "Processing..." : "Create Copy Plan"}
+              {isLoading ? "Processing..." : "View Sync Plan"}
             </button>
           </div>
 
