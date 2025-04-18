@@ -76,12 +76,17 @@ function CopyConfig() {
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-2xl overflow-hidden">
         <div className="px-6 py-8">
-          <h1 className="text-3xl font-bold text-gray-900">
-            Zone Copy Plan Configuration
-          </h1>
+          <h1 className="text-3xl font-bold text-gray-900">WAF Sync Tool</h1>
           <p className="mt-4 text-gray-600">
-            Enter your Cloudflare credentials and zone information to create a
-            copy plan.
+            Copy Cloudflare WAF rules from a source zone to a list of target
+            zones. Go to the{" "}
+            <a
+              href="/#video-container"
+              className="text-pink-800 hover:text-pink-600"
+            >
+              landing page video
+            </a>{" "}
+            to see how it works.
           </p>
 
           <div className="mt-8 space-y-6">
