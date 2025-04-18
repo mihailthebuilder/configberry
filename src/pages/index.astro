@@ -2,12 +2,12 @@
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import BaseHead from "@components/BaseHead.astro";
+import { SITE_TITLE, SITE_DESCRIPTION, CONTACT_FORM_URL } from "../consts";
 
 const faq = [
   {
     question: "I want feature X, can you add it?",
-    answer:
-      'Send me a message on <a href="https://www.linkedin.com/in/mihailmarian" class="text-pink-800 hover:text-pink-600">LinkedIn</a> or via this <a href="https://forms.gle/VQPZ2HojZGaC2tPTA" class="text-pink-800 hover:text-pink-600 inline-block">contact form</a>. This is an early version, and I\'m trying to figure out what to prioritise building next.',
+    answer: `Send me a message on <a href="https://www.linkedin.com/in/mihailmarian" class="text-pink-800 hover:text-pink-600">LinkedIn</a> or via this <a href="${CONTACT_FORM_URL}" class="text-pink-800 hover:text-pink-600 inline-block">contact form</a>. This is an early version, and I\'m trying to figure out what to prioritise building next.`,
   },
   {
     question: "What Cloudflare settings can I manage with this platform?",
@@ -25,8 +25,6 @@ const faq = [
       "The tool doesn't store the emails or API keys you enter, so I'd like to think it's pretty secure.",
   },
 ];
-
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 ---
 
 <html lang="en">
