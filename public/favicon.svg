@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" style="color: #9d174d" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <!-- Larger Berry Shape -->
-  <circle cx="12" cy="12" r="7" stroke="currentColor"></circle>
-  <!-- Larger Config Dots -->
-  <circle cx="10" cy="12" r="1" fill="currentColor"></circle>
-  <circle cx="14" cy="12" r="1" fill="currentColor"></circle>
-  <circle cx="12" cy="14.5" r="1" fill="currentColor"></circle>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round" style="color: #9d174d">
+  <!-- Larger berry shape to fill viewBox -->
+  <circle cx="12" cy="12" r="10" stroke="currentColor" />
+  <!-- Config dots positioned relative to new size -->
+  <circle cx="10" cy="12" r="1.5" fill="currentColor" />
+  <circle cx="14" cy="12" r="1.5" fill="currentColor" />
+  <circle cx="12" cy="15" r="1.5" fill="currentColor" />
 </svg>
