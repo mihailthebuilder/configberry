@@ -76,9 +76,7 @@ function ZonesDownload() {
     <div className="min-h-screen bg-gray-100 py-16 px-6">
       <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
         <div className="px-6 py-6">
-          <h1 className="text-xl font-bold text-gray-900">
-            Upload Emails and API Keys
-          </h1>
+          <h1 className="text-xl font-bold text-gray-900">Zone Export Tool</h1>
           <p className="mt-4 text-lg text-gray-600">
             Upload a CSV file with email addresses and API keys. Each line
             should contain an email and API key separated by a comma.

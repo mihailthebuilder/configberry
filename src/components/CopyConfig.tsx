@@ -93,8 +93,8 @@ function CopyConfig() {
             <div>
               <h2 className="text-xl font-bold mb-1">Source zone</h2>
               <p className="text-gray-600">
-                Enter the Cloudflare API credentials for the source zone. This
-                zone will be used to copy the WAF rules from.
+                Enter the Cloudflare credentials for the source zone. This zone
+                will be used to copy the WAF rules from.
               </p>
             </div>
 
