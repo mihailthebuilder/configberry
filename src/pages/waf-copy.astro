@@ -1,16 +1,16 @@
 ---
 import CopyConfig from "@components/CopyConfig";
-import "@styles/global.css";
 import Footer from "@components/Footer.astro";
 import Header from "@components/Header.astro";
+import BaseHead from "@components/BaseHead.astro";
 ---
 
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Cloud Configs</title>
+    <BaseHead
+      title="ConfigBerry | Cloudflare WAF Sync Tool"
+      description="Copy WAF rules from one Cloudflare zone to a list of zones. The easiest way to sync up Cloudflare rules across all your domains."
+    />
   </head>
   <body>
     <Header />
