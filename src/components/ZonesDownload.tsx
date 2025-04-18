@@ -77,9 +77,16 @@ function ZonesDownload() {
       <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
         <div className="px-6 py-6">
           <h1 className="text-xl font-bold text-gray-900">Zone Export Tool</h1>
-          <p className="mt-4 text-lg text-gray-600">
-            Upload a CSV file with email addresses and API keys. Each line
-            should contain an email and API key separated by a comma.
+          <p className="mt-2 text-gray-600">
+            Upload a CSV file with Cloudflare email addresses and API keys. See{" "}
+            <a
+              href="/zoneExportSample.csv"
+              className="text-pink-800 hover:text-pink-600"
+              download
+            >
+              this sample CSV file
+            </a>
+            .
           </p>
 
           <FileUploader
@@ -155,6 +162,10 @@ function ZonesDownload() {
 
 const parseFileContent = (content: string): CloudflareAccount[] => {
   const lines = content.split("\n").filter((line) => line.trim() !== "");
+
+  if (lines[0].startsWith("apiEmail")) {
+    lines.shift();
+  }
 
   return lines.map((line) => {
     const [email, apiKey] = line.split(",").map((item) => item.trim());
