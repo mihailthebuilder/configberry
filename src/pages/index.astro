@@ -30,27 +30,17 @@ const steps = [
   {
     title: "Prepare Your Zone List",
     description:
-      "Create a CSV with zone IDs, names, API emails, and API keys for your target sites, or use our Free Zone Export Tool.",
-  },
-  {
-    title: "Source Configuration",
-    description:
-      "Get the zone ID, API email, and API key for the zone containing your preferred WAF configuration.",
+      "Create a CSV with zone IDs, names, API emails, and API keys for your target sites, and the same information for the source zone.",
   },
   {
     title: "Enter Details",
     description:
-      "Navigate to the Copy page and input your source zone credentials and target zone information.",
-  },
-  {
-    title: "Review Copy Plan",
-    description:
-      "Click 'Create Copy Plan' to preview which rules will be synchronized across your specified zones.",
+      "Upload the source and target zone credentials in the WAF Sync Tool.",
   },
   {
     title: "Apply Changes",
     description:
-      "Confirm and click 'Apply' to securely deploy your WAF configurations across all target zones.",
+      "Verify the planned changes and apply them across all your zones.",
   },
 ];
 ---
@@ -139,7 +129,7 @@ const steps = [
             </h2>
             <p class="text-lg text-gray-600 max-w-3xl mx-auto">
               Synchronize your Cloudflare WAF security rules across multiple
-              domains in five simple steps
+              domains in {steps.length} simple steps
             </p>
           </div>
 
