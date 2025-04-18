@@ -25,6 +25,34 @@ const faq = [
       "The tool doesn't store the emails or API keys you enter, so I'd like to think it's pretty secure.",
   },
 ];
+
+const steps = [
+  {
+    title: "Prepare Your Zone List",
+    description:
+      "Create a CSV with zone IDs, names, API emails, and API keys for your target sites, or use our Free Zone Export Tool.",
+  },
+  {
+    title: "Source Configuration",
+    description:
+      "Get the zone ID, API email, and API key for the zone containing your preferred WAF configuration.",
+  },
+  {
+    title: "Enter Details",
+    description:
+      "Navigate to the Copy page and input your source zone credentials and target zone information.",
+  },
+  {
+    title: "Review Copy Plan",
+    description:
+      "Click 'Create Copy Plan' to preview which rules will be synchronized across your specified zones.",
+  },
+  {
+    title: "Apply Changes",
+    description:
+      "Confirm and click 'Apply' to securely deploy your WAF configurations across all target zones.",
+  },
+];
 ---
 
 <html lang="en">
@@ -116,89 +144,19 @@ const faq = [
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Step 1 -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-              <div class="flex items-center mb-4">
-                <div
-                  class="flex items-center justify-center h-12 w-12 rounded-full bg-pink-100 text-pink-800 font-bold text-xl mr-4"
-                >
-                  1
+            {
+              steps.map((step, index) => (
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                  <div class="flex items-center mb-4">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-full bg-pink-100 text-pink-800 font-bold text-xl mr-4">
+                      {index + 1}
+                    </div>
+                    <h3 class="font-semibold text-xl">{step.title}</h3>
+                  </div>
+                  <p class="text-gray-600">{step.description}</p>
                 </div>
-                <h3 class="font-semibold text-xl">Prepare Your Zone List</h3>
-              </div>
-              <p class="text-gray-600">
-                Create a CSV with zone IDs, names, API emails, and API keys for
-                your target sites, or use our <a
-                  href="/export-zones"
-                  class="text-pink-800 hover:text-pink-600"
-                  >Free Zone Export Tool</a
-                >.
-              </p>
-            </div>
-
-            <!-- Step 2 -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-              <div class="flex items-center mb-4">
-                <div
-                  class="flex items-center justify-center h-12 w-12 rounded-full bg-pink-100 text-pink-800 font-bold text-xl mr-4"
-                >
-                  2
-                </div>
-                <h3 class="font-semibold text-xl">Source Configuration</h3>
-              </div>
-              <p class="text-gray-600">
-                Identify the source zone ID, API email, and API key for the zone
-                containing your preferred WAF configuration.
-              </p>
-            </div>
-
-            <!-- Step 3 -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-              <div class="flex items-center mb-4">
-                <div
-                  class="flex items-center justify-center h-12 w-12 rounded-full bg-pink-100 text-pink-800 font-bold text-xl mr-4"
-                >
-                  3
-                </div>
-                <h3 class="font-semibold text-xl">Enter Details</h3>
-              </div>
-              <p class="text-gray-600">
-                Navigate to the Copy page and input both your source credentials
-                and target zone information.
-              </p>
-            </div>
-
-            <!-- Step 4 -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-              <div class="flex items-center mb-4">
-                <div
-                  class="flex items-center justify-center h-12 w-12 rounded-full bg-pink-100 text-pink-800 font-bold text-xl mr-4"
-                >
-                  4
-                </div>
-                <h3 class="font-semibold text-xl">Review Copy Plan</h3>
-              </div>
-              <p class="text-gray-600">
-                Click "Create Copy Plan" to preview which rules will be
-                synchronized across your specified zones.
-              </p>
-            </div>
-
-            <!-- Step 5 -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-              <div class="flex items-center mb-4">
-                <div
-                  class="flex items-center justify-center h-12 w-12 rounded-full bg-pink-100 text-pink-800 font-bold text-xl mr-4"
-                >
-                  5
-                </div>
-                <h3 class="font-semibold text-xl">Apply Changes</h3>
-              </div>
-              <p class="text-gray-600">
-                Confirm and click "Apply" to securely deploy your WAF
-                configurations across all target zones.
-              </p>
-            </div>
+              ))
+            }
           </div>
 
           <div class="mt-12 text-center">
