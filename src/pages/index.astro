@@ -1,4 +1,6 @@
 ---
+import "lite-youtube-embed/src/lite-yt-embed.css";
+
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import BaseHead from "@components/BaseHead.astro";
@@ -100,6 +102,9 @@ const steps = [
                     videoid="a_8ZRacCOcA"
                     playlabel="How to quickly copy Cloudflare WAF rules across multiple domains"
                   ></lite-youtube>
+                  <script type="module">
+                    import "lite-youtube-embed";
+                  </script>
                 </div>
               </div>
             </div>
