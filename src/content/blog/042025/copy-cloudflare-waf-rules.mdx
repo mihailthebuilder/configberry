@@ -5,7 +5,7 @@ pubDate: "Apr 23 2025"
 ---
 
 I set up quite a few domains with Cloudflare, and I've been manually applying the same firewall rules to each of them.
-Blocking known bots, restricting access to admin routes, etcetera. As the list of websites increased, this was becoming
+Blocking known bots, restricting access to admin routes, etc. As the list of websites increased, this was becoming
 more time-consuming.
 
 So, as the engineer that I am, I decided to build a **free**, online tool that enables anyone to copy rules from one zone (let's call it **source zone**), to a list of zones (will call these **target zones**). Let me show you how to use it.
@@ -19,16 +19,13 @@ Start by visiting [ConfigBerry.com](https://configberry.com) and navigating to t
 ## Step 2: Input the source zone credentials
 
 Pick a Cloduflare zone where you already have all the WAF rules that you want to copy over. Find the zone ID, API email,
-and API key for that domain; if you're wondering where to get this information, check out [this post](./cloudflare-zone-api-credentials). Enter the credentials into the "Source Zone" section of the WAF Sync Tool.
+and API key for that domain; if you're wondering where to get this information, check out [this post](./cloudflare-zone-api-credentials).
+
+Enter the credentials into the "Source Zone" section of the WAF Sync Tool.
 
 ## Step 3: Provide target zones list
 
-Upload a CSV file containing information about the domains where you want to copy/paste the firewall rules. This file must include, in the exact order:
-
-- zone ID
-- zone name
-- API email
-- API key
+Upload a CSV file containing information about the domains where you want to copy/paste the firewall rules. This file must include, in the exact order: _zone ID, zone name, API email, and API key_.
 
 The beauty of this CSV file is that you can easily include a large number of domains, across different Cloudflare accounts.
 
