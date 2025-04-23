@@ -190,7 +190,12 @@ const posts = (await getCollection("blog")).sort(
         <div class="text-center mb-12">
           <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Blog</h2>
         </div>
-        <ul class="space-y-3">{posts.map((post) => <Post post={post} />)}</ul>
+
+        <div class="max-w-4xl mx-auto">
+          <ul class="space-y-6">
+            {posts.map((post) => <Post post={post} />)}
+          </ul>
+        </div>
       </section>
     </main>
 
