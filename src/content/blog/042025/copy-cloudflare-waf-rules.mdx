@@ -1,6 +1,6 @@
 ---
 title: "How to copy Cloudflare firewall rules across multiple domains"
-description: ""
+description: "A quick way to copy Cloudflare WAF security rules across a large number of domains, without having to use Terraform."
 pubDate: "Apr 23 2025"
 ---
 
@@ -30,4 +30,15 @@ Upload a CSV file containing information about the domains where you want to cop
 - API email
 - API key
 
+The beauty of this CSV file is that you can easily include a large number of domains, across different Cloudflare accounts.
+
 You can either create this file manually - here's [a sample file](/wafSyncSample.csv) to help you get started. Or, use the [Zone Export Tool](/export-zones) I built, which enables you to download the credentials for all domains attached to a given list of Cloudflare accounts; I've written [another blog post](./cloudflare-export-zones) on how to use this tool.
+
+## Step 4: Review and execute
+
+Click "View Sync Plan" to check what rules are going to be applied, and to which zones they'll be copied over to.
+Then click "Apply Rules to Zones" to execute the plan; after a few seconds, the tool will inform you whether the copying was successful.
+
+So there you have it! A quick and easy way to apply Cloudflare WAF security rules to a large number of domains.
+
+Got any questions/feedback? Use [the contact form](/contact), or reach out to me [on LinkedIn](https://www.linkedin.com/in/mihailmarian).
