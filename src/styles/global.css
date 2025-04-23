@@ -1,18 +1,42 @@
 @import "tailwindcss";
 
 .blogpost-content {
+  @apply text-gray-900;
+
   img {
-    @apply mt-4;
+    @apply mt-4 rounded-lg shadow-md my-6 mx-auto;
   }
+
   .astro-code {
-    @apply p-4 rounded-2xl my-4;
+    @apply p-4 rounded-lg bg-gray-800 text-white my-6 shadow-md;
   }
 
   p {
-    @apply mb-2;
+    @apply mb-4 leading-relaxed;
   }
 
   a {
-    @apply text-blue-600 hover:underline;
+    @apply text-pink-800 hover:underline;
+  }
+
+  h2 {
+    @apply text-2xl font-bold text-gray-900 mt-8 mb-4;
+  }
+
+  h3 {
+    @apply text-xl font-semibold text-gray-900 mt-6 mb-3;
+  }
+
+  ul,
+  ol {
+    @apply mb-4 ml-6;
+  }
+
+  li {
+    @apply mb-2;
+  }
+
+  blockquote {
+    @apply border-l-4 border-pink-800 pl-4 italic my-4 text-gray-600;
   }
 }

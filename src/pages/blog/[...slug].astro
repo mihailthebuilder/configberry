@@ -4,8 +4,7 @@ import { render } from "astro:content";
 
 import BaseHead from "@components/BaseHead.astro";
 import Footer from "@components/Footer.astro";
-import { SITE_TITLE } from "../../consts";
-import FormattedDate from "@components/FormattedDate.astro";
+import Header from "@components/Header.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -23,39 +22,26 @@ const { Content } = await render(post);
 <html lang="en">
   <head>
     <BaseHead title={post.data.title} description={post.data.description} />
+    <style>
+      /* Additional styles to maintain consistency with landing page */
+    </style>
   </head>
 
-  <body class="max-w-prose mx-auto px-6 sm:px-8 bg-gray-100">
-    <header>
-      <nav class="py-5 flex justify-between items-center">
-        <a href="/" class="font-bold md:text-xl !text-black">{SITE_TITLE}</a>
-        <div class="text-sm md:text-base">
-          <a href="/rss.xml" class="!text-black">RSS</a>
-        </div>
-      </nav>
-    </header>
-    <hr class="border-t-1 border-gray-600 mb-5 md:mb-10" />
+  <body class="bg-gray-50 text-gray-900">
+    <Header />
+
     <main>
-      <section class="mb-4 md:mb-8">
-        <h1 class="text-xl md:text-3xl font-bold">{post.data.title}</h1>
-        <FormattedDate class="text-sm mt-1 md:mt-" date={post.data.pubDate} />
-      </section>
-      <section class="blogpost-content">
-        <Content />
-      </section>
+      <div class="max-w-2xl mx-auto px-6 py-12">
+        <section class="mb-8">
+          <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+            {post.data.title}
+          </h1>
+        </section>
 
-      <hr class="border-t-1 border-gray-600 mt-10 mb-10" />
-
-      <p>
-        I started this blog because I wanted to have conversations on topics
-        that I find interesting. So, feel welcome to reach out to me, even if to
-        challenge my perspective. <a href="https://linkedin.com/in/mihailmarian"
-          >I'm on LinkedIn</a
-        >; please add a message when you connect. Alternatively, use <a
-          href="https://forms.gle/Cav7xRAYmtW1SJcYA"
-          >this hideous contact form</a
-        >; include your email address if you'd like me to reply.
-      </p>
+        <section class="blogpost-content prose prose-lg max-w-none">
+          <Content />
+        </section>
+      </div>
     </main>
 
     <Footer />
