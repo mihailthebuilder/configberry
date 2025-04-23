@@ -1,9 +1,11 @@
 ---
 import "lite-youtube-embed/src/lite-yt-embed.css";
+import { getCollection } from "astro:content";
 
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import BaseHead from "@components/BaseHead.astro";
+import Post from "@components/Post.astro";
 import { SITE_TITLE, SITE_DESCRIPTION, CONTACT_FORM_URL } from "../consts";
 
 const faq = [
@@ -45,6 +47,10 @@ const steps = [
       "Verify the planned changes and apply them across all your zones.",
   },
 ];
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
 ---
 
 <html lang="en">
@@ -184,6 +190,7 @@ const steps = [
         <div class="text-center mb-12">
           <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Blog</h2>
         </div>
+        <ul class="space-y-3">{posts.map((post) => <Post post={post} />)}</ul>
       </section>
     </main>
 
