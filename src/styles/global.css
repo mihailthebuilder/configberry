@@ -1,26 +1,25 @@
 @import "tailwindcss";
-
 .blogpost-content {
   @apply text-gray-900;
 
   img {
-    @apply mt-4 rounded-lg shadow-md my-6 mx-auto;
+    @apply mt-4 rounded-lg shadow-lg my-6 mx-auto border border-gray-200;
   }
 
   .astro-code {
-    @apply p-4 rounded-lg bg-gray-800 text-white my-6 shadow-md;
+    @apply p-4 rounded-lg bg-gray-800 text-white my-6 shadow-lg border-l-4 border-pink-800;
   }
 
   p {
-    @apply mb-4 leading-relaxed;
+    @apply mb-4 leading-relaxed text-gray-700;
   }
 
   a {
-    @apply text-pink-800 hover:underline;
+    @apply text-pink-800 hover:underline duration-200 font-medium;
   }
 
   h2 {
-    @apply text-2xl font-bold text-gray-900 mt-8 mb-4;
+    @apply text-2xl font-bold text-gray-900 mt-8 mb-4 border-l-4 border-pink-800 pl-3;
   }
 
   h3 {
@@ -29,7 +28,7 @@
 
   ul,
   ol {
-    @apply mb-4 ml-6;
+    @apply mb-4 ml-6 text-gray-700;
   }
 
   li {
@@ -37,6 +36,6 @@
   }
 
   blockquote {
-    @apply border-l-4 border-pink-800 pl-4 italic my-4 text-gray-600;
+    @apply border-l-4 border-pink-800 pl-4 italic my-4 text-gray-600 bg-gray-50 py-2 rounded-r;
   }
 }
