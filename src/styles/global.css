@@ -1,1 +1,18 @@
 @import "tailwindcss";
+
+.blogpost-content {
+  img {
+    @apply mt-4;
+  }
+  .astro-code {
+    @apply p-4 rounded-2xl my-4;
+  }
+
+  p {
+    @apply mb-2;
+  }
+
+  a {
+    @apply text-blue-600 hover:underline;
+  }
+}
