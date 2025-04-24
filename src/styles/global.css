@@ -7,7 +7,7 @@
   }
 
   .astro-code {
-    @apply p-4 rounded-lg bg-gray-800 text-white my-6 shadow-lg border-l-4 border-pink-800;
+    @apply p-4 rounded-lg shadow-lg text-sm mb-6;
   }
 
   p {
