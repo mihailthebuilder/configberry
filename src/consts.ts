@@ -6,4 +6,4 @@ export const SITE_TITLE =
 export const SITE_DESCRIPTION =
   "Collection of tools to manage Cloudflare rules a large number of multiple zones and accounts. Bulk export, import, copy, and delete rules.";
 export const SITE_URL = "https://configberry.com";
-export const CONTACT_FORM_URL = "https://forms.gle/VQPZ2HojZGaC2tPTA";
+export const CONTACT_FORM_URL = "https://tally.so/r/mRgz6d";
