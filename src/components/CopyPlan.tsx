@@ -31,6 +31,7 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
               action: rule.action,
               expression: rule.expression,
               description: rule.description,
+              action_parameters: rule.action_parameters,
             };
           }),
         });
