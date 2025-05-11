@@ -25,6 +25,7 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
       try {
         await client.rulesets.phases.update("http_request_firewall_custom", {
           zone_id: zone.zoneId,
+          // @ts-ignore: true
           rules: cloudflarePhase.rules.map((rule) => {
             return {
               enabled: rule.enabled,
