@@ -16,6 +16,8 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState<ZoneCopyResult[]>([]);
 
+  console.log(cloudflarePhase.rules);
+
   const applyRulesToZones = async () => {
     setIsLoading(true);
     const results: ZoneCopyResult[] = [];
@@ -92,6 +94,17 @@ function CopyPlan({ cloudflarePhase, zonesToApply }: CopyPlanProps) {
                 {rule.expression}
               </div>
             </div>
+
+            {rule.action_parameters && (
+              <div className="mt-2">
+                <span className="text-xs text-gray-600 uppercase font-medium">
+                  Action parameters:
+                </span>
+                <div className="w-full font-mono text-sm bg-gray-200 px-3 py-2 mt-1 rounded break-all">
+                  {JSON.stringify(rule.action_parameters, null, 2)}
+                </div>
+              </div>
+            )}
           </div>
         ))}
       </div>
@@ -199,6 +212,7 @@ const displayRules = (phase: PhaseGetResponse) => {
       action: rule.action,
       enabled: rule.enabled,
       expression: rule.expression,
+      action_parameters: rule.action_parameters as Object | undefined,
     };
   });
   return rules;
