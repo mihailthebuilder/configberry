@@ -34,9 +34,9 @@ own proxy and point the app at it (see Configuration).
 
 ## Configuration
 
-| Variable | Required | Default | Description |
-|---|---|---|---|
-| `PUBLIC_CLOUDFLARE_API_BASE_URL` | No | `https://api.cloudflare.com/client/v4` | Base URL for Cloudflare API requests. Set this to your CORS-forwarding reverse proxy. The default works for non-browser use but browser requests will fail CORS without a proxy. |
+| Variable                         | Required | Default                                | Description                                                                                                                                                                      |
+| -------------------------------- | -------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PUBLIC_CLOUDFLARE_API_BASE_URL` | No       | `https://api.cloudflare.com/client/v4` | Base URL for Cloudflare API requests. Set this to your CORS-forwarding reverse proxy. The default works for non-browser use but browser requests will fail CORS without a proxy. |
 
 Set it in a `.env` file at the project root (gitignored):
 
@@ -64,7 +64,3 @@ Built with [Astro](https://astro.build) + React, styled with Tailwind CSS.
 - Cloudflare API reference: https://developers.cloudflare.com/api/ — to find
   the right SDK method, open the API docs and switch the `cURL` dropdown to
   `TypeScript`.
-
-## License
-
-No license yet — add one before relying on this in your own projects.
