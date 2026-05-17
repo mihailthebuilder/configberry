@@ -12,6 +12,9 @@ sync rules without writing Terraform.
 
 [Demo video](https://www.youtube.com/watch?v=a_8ZRacCOcA)
 
+The live site is no longer hosted (domain not renewed). An archived copy is
+available on the [Internet Archive](https://web.archive.org/web/20260209081307/https://configberry.com/).
+
 ## Tools
 
 - **WAF Sync** — copy WAF custom firewall rules from a source zone to many
